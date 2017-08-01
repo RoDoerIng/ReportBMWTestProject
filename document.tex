@@ -1,0 +1,39 @@
+\documentclass[
+  a4paper,
+  %halfparskip,
+  oneside,
+  11pt,
+  headsepline,
+  %noonelinecaption,
+  %BCOR=10mm,
+  %bibtotoc,
+  %%PPP
+  bibliography=totoc,
+  %liststotoc,
+  %listof=totoc,;
+  %pointlessnumbers,
+  final
+]
+{scrbook}
+
+\usepackage{mystyle}
+
+\pagestyle{headings}
+
+\begin{document}
+
+%% Vorspann
+\frontmatter
+\subfile{tex/titlepage}
+\tableofcontents
+
+
+%% Hauptteil
+\mainmatter{}
+%\subfile{tex/roadmap}
+
+
+
+
+
+\end{document}

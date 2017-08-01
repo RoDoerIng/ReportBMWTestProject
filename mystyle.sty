@@ -1,0 +1,171 @@
+\ProvidesPackage{mystyle}
+
+%% Localisation
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+%% Font
+\renewcommand*{\familydefault}{\sfdefault}
+%\renewcommand*{\rmdefault}{\familydefault}   %% optional if some packages change font family to roman
+\usepackage{inconsolata}  %% set ttfamily font to consolas
+\usepackage{helvet}
+
+%% Spacing
+\usepackage{setspace}
+
+%% Modular Documents
+% https://en.wikibooks.org/wiki/LaTeX/Modular_Documents
+% subfiles are no longer called by \input or \include but by using \subfile
+\usepackage{subfiles}
+
+%% Colors
+\usepackage{xcolor} 		% Farboptionen
+%\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\definecolor{red}{rgb}{0.6,0,0} % for strings
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{green}{rgb}{0,0.8,0}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+\definecolor{terminal_gray}{rgb}{0.9,0.9,0.9}
+
+%% Physical units
+\usepackage[binary-units = true]{siunitx}
+\DeclareSIUnit{\Bit}{bit}
+
+%%Captions
+\usepackage{caption}
+
+%% Lisitings
+\usepackage{listings}
+\makeatletter
+\lst@InstallKeywords k{attributes}{attributestyle}\slshape{attributestyle}{}ld
+\makeatother
+\lstloadlanguages{% Check Dokumentation for further languages ...
+C,
+C++,
+csh,
+Java,
+XML
+}
+\lstdefinestyle{Terminal}{
+	backgroundcolor=\color{black},  %terminal_gray, darkgray
+	basicstyle=\ttfamily\color{terminal_gray}  %black, white
+}
+
+\lstdefinestyle{cSharp}{
+	language=csh,
+	basicstyle=\scriptsize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	tabsize=2,
+	extendedchars=true,
+	captionpos = t,
+	breaklines=true,
+	breakatwhitespace=true,
+	%escapeinside={(*@}{@*)},
+	stringstyle=\color{redstrings},
+	showspaces=false,
+	showtabs=true,
+	xleftmargin=17pt,
+	frame=lines,		%bottom and top lines
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framexbottommargin=4pt,
+	commentstyle=\color{greencomments},
+	morecomment=[l]{//}, %use comment-line-style!
+	morecomment=[s]{/*}{*/}, %for multiline comments
+	showstringspaces=false,
+	morekeywords={  abstract, event, new, struct,
+	                as, explicit, null, switch,
+	                base, extern, object, this,
+	                bool, false, operator, throw,
+	                break, finally, out, true,
+	                byte, fixed, override, try,
+	                case, float, params, typeof,
+	                catch, for, private, uint,
+	                char, foreach, protected, ulong,
+	                checked, goto, public, unchecked,
+	                class, if, readonly, unsafe,
+	                const, implicit, ref, ushort,
+	                continue, in, return, using,
+	                decimal, int, sbyte, virtual,
+	                default, interface, sealed, volatile,
+	                delegate, internal, short, void,
+	                do, is, sizeof, while,
+	                double, lock, stackalloc,
+	                else, long, static,
+	                enum, namespace, string,
+									partial, var, get, set},
+	keywordstyle=\color{bluekeywords},
+	moreattributes={	String, Console, Assembly,
+										MyCustomClass, Result, ResultPrinter,
+										SampleAttribute, Test, Person,
+										ClockTowerEventArgs, ClockTower}, % etc...
+	attributestyle = \color{types}, % (for instance)
+	%identifierstyle=\color{red}
+}
+
+%%Drawing with LaTeX
+\usepackage{./sty/tikz-uml}
+
+%% Citations and Bibliography
+\usepackage[hyphens]{url}
+%\usepackage{natbib}
+\usepackage{multibib}
+\newcites{ldat}{Datenblätter}
+\newcites{lonl}{Internetquellen}
+\newcites{lpic}{Bildquellen}
+\newcites{llit}{Literaturquellen}
+
+%% Links in PDF document
+% Verlinkungen im PDF-Dokument
+\usepackage[
+				pdftex,
+				colorlinks=true,
+        linkcolor=black,
+        citecolor=black,
+        filecolor=black,
+        urlcolor=blue,
+        bookmarks=true,
+        bookmarksopen=true,
+        bookmarksopenlevel=3,
+        plainpages=false,
+        pdfpagelabels=true]{hyperref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%% NEW COMMANDS %%%%
+%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bild}[4]{
+	\begin{figure}[#1]   %htbp!H https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+		\begin{center}
+			\includegraphics[#2]{#3}
+			\captionsetup{font=small}
+			\caption{#4}
+			\label{fig:#3}
+		\end{center}
+	\end{figure}
+}
+
+
+%% Superscript Subscript
+\newcommand{\ti}[1]{\textsubscript{#1}} 		% tiefstellen im Text mit \t
+\newcommand{\ho}[1]{\textsuperscript{#1}} 	% hochstellen im Text mit \h
+
+%% insert empty row
+\newcommand{\leer}{\par \bigskip \noindent}
+
+%% Number with unit
+\newcommand{\einh}[2]{\SI[detect-all, output-decimal-marker = {,}]{#1}{#2}}
+
+%% Source Code Paths
+\newcommand{\src}{src/research}
+\newcommand{\extsrc}{}
