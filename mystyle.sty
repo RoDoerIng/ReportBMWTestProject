@@ -139,6 +139,26 @@ XML
         plainpages=false,
         pdfpagelabels=true]{hyperref}
 
+%% Graphics
+%\usepackage{graphics}
+%\usepackage{graphicx}
+\usepackage{floatflt}
+\usepackage{float}
+%\usepackage{picinpar}
+\usepackage{graphicx}
+%\usepackage{wrapfig} %Bilder mit \begin{wrapfigure} {l} {5cm} einbinden, um Text herum schreiben zu können (linksbündig) (Bild 5cm breit)
+\usepackage[export]{adjustbox}
+\usepackage{subfig}
+\usepackage{pgffor}
+\usepackage[abs]{overpic}		% Elemente auf Bildern positionieren
+\usepackage{epstopdf}		% eps-Dateien als Bilder einbinden
+
+\usepackage[
+%justification=centering
+]{caption}
+
+\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+\graphicspath{{./img/}}
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%% NEW COMMANDS %%%%
