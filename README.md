@@ -7,7 +7,8 @@ This Repo holds all relevant tex files for the final report.
   1. Ausgangspunkt
   3. Projektumfang
   1. Aufgabenstellung
-- Anlagenkonzept
+- Planung
+  1. Roadmap
   1. Steuerungskonzept
     1. Überblick
     1. Sicherheitstechnik

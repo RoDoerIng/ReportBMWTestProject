@@ -1,0 +1,66 @@
+%% Control Concept
+
+%%%% SUBFILE %%%%
+% subfiles allows to compile from a subfile and not main document
+% to make it work in a folder structure, the root document needs to be specified
+% in each subfile with the following line (placed somewhere at the beginning):
+% !TEX root =  ../document.tex
+
+\chapter{Planung}
+\label{chap:planning}
+
+\bild{t}{width=\textwidth}{roadmap}{Anlagenentstehungsprozess: Roadmap}
+\section{Roadmap}
+Der Anlagenentstehungsprozess ist an eine im Standard enthaltene Roadmap geknüpft. Abbildung~\ref{fig:roadmap} zeigt eine gegliederte Darstellung dieser Roadmap in etwas vereinfachter Weise. %Wie bereits in Kapitel~\ref{chap:intro} erwähnt, sind die einzelnen Schritte während der gesamten Projektbearbeitung klar definiert.
+Der gesamte Prozess lässt sich in sechs Abschnitte gliedern. Jeder Abschnitt enthält wiederum verschiedene Schritte. Ein neuer Schritt wird erst abgearbeitet, wenn der vorangegangene abgeschlossen und durch BMW abgenommen ist.
+
+\section{Vorbereitung}
+Vor der eigentlichen Bearbeitung des Projektumfanges erhält der Anlagenhersteller eine aktuelle Version der Dokumente, die den Standard bilden. Das sind Dokumente folgender Kategorien:
+%\begin{spacing}{0.5}
+  \begin{itemize}
+    \itemsep0.1em
+    \item Kaufteile
+    \item Planung
+    \item EPLAN
+    \item Hardware Konstruktion
+    \item Antriebstechnik
+    \item IT-System Schnittstellen
+    \item Roboter
+    \item Visualisierung mit TIA-WinCC
+    \item Classic SPS Siemens SIAMTIC
+    \item Dokumentation
+    \item Fördertechnik
+    \item Allgemeines
+  \end{itemize}
+
+%\end{spacing}
+In seiner Gesamtheit umfasst der TMO V1 Standard über 250 Dokumente, die zu einem großen Teil im Excel-, Word- oder PDF-Format vorliegen. Neben einer ganzen Reihe an Richtlinien, steht eine Vielzahl an fertigen Projektvorlagen zur Verfügung. Diese erleichtern die spätere Bearbeitung und sorgen dafür, dass alle Projekte auf einer gleichen Basis aufbauen.
+
+Nach dem der Angebotsprozess abgeschlossen ist und die Formalitäten zwischen Anlagenbetreiber und Hersteller geklärt sind, findet schließlich der Kick Off auf Leitungsebene und anschließend auf technischer Ebene statt.
+
+\section{Steuerungskonzept}
+\label{sec:controlConcept}
+
+\subsection{Überblick}
+
+Im ersten Projektierungsschritt wird ein Konzept erarbeitet, welches alle wesentlichen Komponenten der zukünftigen Anlage sowie deren Verknüpfung miteinander enthält (siehe Abb.~\ref{fig:controlConceptOverview}). Ziel des Steuerungskonzeptes ist es, eine Art Leitfaden für den gesamten Entwicklungsprozess zu schaffen, auf den sich Konstrukteure und Programmierer während des gesamten Projektes stützen können.
+Die folgenden Abschnitte enthalten jeweils Auszüge und dienen der Veranschaulichung des Inhaltes und Umfanges des Steuerungskonzepts. Das komplette Dokument liegt dem Bericht als Anhang~\ref{appndx:controlConcept} bei.
+
+\bild{t}{width=\textwidth}{controlConceptOverview}{Steuerungskonzept: Überblick}
+
+\subsection{Sicherheitstechnik}
+
+Die Anlagensicherheit ist ein wichtiger Teil der Projektierung. Das Schema in Abbildung~\ref{fig:controlConceptSafety} zeigt die Verwendung einer Safety-SPS. Die Verbindung zu den dezentralen Komponenten wie ET200 SP oder ET200 PRO erfolgt über den Industrial-Ethernet-Standard PROFINET
+\footnote{Profinet basiert auf Ethernet-TCP/IP und ergänzt die Profibus-Technologie für Anwendungen, bei denen schnelle Datenkommunikation über Ethernet-Netzwerke in Kombination mit industriellen IT-Funktionen gefordert wird. \citelonl{onl_profinet}}.
+Zur Datenübertragung dient das Protokoll PROFIsafe
+\footnote{Das PROFIsafe-System ist eine Erweiterung des Profibus- und PROFINET-Systems. Mit dem System können frei programmierbare Sicherheitsfunktionen ausgeführt und die hierfür notwendigen sicheren Ein- und Ausgangsdaten von und zu den sicheren I/O-Geräten übertragen werden.\citelonl{onl_profisafe}}.
+An die dezentrale Peripherie werden die sicherheitsrelevanten Baugruppen per digitaler Signale verbunden. Dafür werden spezielle sichere Eingangs- und Ausgangsbaugruppen verwendet. Konkret kommen in diesem Fall NOT-HALT-Taster, Türverriegelungen, Lichtvorhänge und Zustimmtaster zum Einsatz. Im Schema werden die einzelnen Komponenten nur mit jeweils einem Vertreter dargestellt.
+
+\bild{t}{width=\textwidth}{controlConceptSafety}{Steuerungskonzept: Sicherheitstechnik}
+
+
+\subsection{Antriebstechnik}
+
+\subsection{Energieversorgung}
+
+\subsection{Softwarestruktur und Kommunikationswege}
