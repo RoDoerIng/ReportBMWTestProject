@@ -6,6 +6,8 @@
 % in each subfile with the following line (placed somewhere at the beginning):
 % !TEX root =  ../document.tex
 
+%%%% Spell Check %%%%
+
 \chapter{Einleitung}
 \label{chap:intro}
 
@@ -18,7 +20,23 @@ Den Löwenanteil der BMW Niederlassung in Leipzig bildet jedoch der Technologieb
 
 Der genannte Standard stellt einen kompletten Leitfaden für den Anlagenhersteller von Projektbeginn bis zur Übergabe an BMW dar. Damit wird sichergestellt, dass während der gesamten Projektphase die Konformität zum Standard eingehalten wird und bei der späteren Integration der Anlage in die Produktion keine Kompatibilitätsprobleme auftreten.
 
-Um Anlagen herzustellen, zu betreuen oder zu erweitern verlangt BMW von potentiellen Dienstleistern einen Nachweis der Konformität zu diesem Standard. Im Fall der OSB AG am Standort Leipzig besteht dieser Nachweis in der Bearbeitung eines fiktiven Projektes, im Folgenden \emph{Testprojekt} genannt, welches einen Großteil der geforderten Design-Richtlinien abdeckt. Neben der Konformitätsbewertung der OSB AG hinsichtlich des TMO V1 Standards bildet dieses Testprojekt den thematischen Rahmen für diesen Bericht.
+Um Anlagen herzustellen, zu betreuen oder zu erweitern verlangt BMW von potentiellen Dienstleistern einen Nachweis der Konformität zu diesem Standard. Im Fall der OSB AG am Standort Leipzig besteht dieser Nachweis in der Bearbeitung eines fiktiven Projektes, im Folgenden \emph{Testprojekt} genannt, welches einen Großteil der geforderten Design-Richtlinien und Prozesse des Anlagenentstehungsprozesses abdeckt. Neben der Konformitätsbewertung der OSB AG hinsichtlich des TMO V1 Standards bildet das Testprojekt den thematischen Rahmen für diesen Bericht.
+
+\section{Projektumfang}
+\bild{t}{width=0.6\textwidth}{robotCell}{Roboterzelle: Schematische Darstellung}
+Gegenstand des Testprojektes ist die Projektierung einer Montagestation. Dabei handelt es sich um eine Roboterzelle mit Fördertechnik entsprechend der schematischen Darstellungs in Abbildung~\ref{fig:robotCell}.
+
+Die Station soll dabei folgende Funktionen erfüllen:
+\begin{enumerate}
+	\itemsep0.1em
+	\item Übernahme des Fahrzeugs von Vorgängerstation
+	\item \label{item:processing}Bearbeitung in Abhängigkeit des Fahrzeugtyps
+	\item Übergabe des Fahrzeugs an Nachfolgestation
+	\item Kommunikation mit übergeordneten IT-Systemen
+	%\item Bedienung aller Komponenten der Station per Panel
+\end{enumerate}
+
+Da es sich um ein fiktives Projekt handelt wird die in Punkt~\ref{item:processing} beschriebene Funktion nur beispielhaft implementiert. Es ist vorgesehen einen Art Greifer für den Roboter zu projektieren, der über zwei Zylinder verfügt. Auf Basis einer Typverwaltung wird dann entscheiden, bei welchem Fahrzeugtyp welcher Zylinder aktiv wird.
 
 
 \section{Aufgabenstellung}
@@ -29,5 +47,6 @@ Teilaufgaben:%\leer
 	\item Einarbeitung in die herstellerspezifischen Richtlinien
 	\item Konzeption der Steuerungstechnik
 	\item Konzeption interner und externer Schnittstellen
+	\item Auswahl und Aufbau eines Testsystems
 	\item Softwaretechnische Umsetzung
 \end{enumerate}
