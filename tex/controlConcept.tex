@@ -6,61 +6,47 @@
 % in each subfile with the following line (placed somewhere at the beginning):
 % !TEX root =  ../document.tex
 
-\chapter{Planung}
-\label{chap:planning}
-
-\bild{t}{width=\textwidth}{roadmap}{Anlagenentstehungsprozess: Roadmap}
-\section{Roadmap}
-Der Anlagenentstehungsprozess ist an eine im Standard enthaltene Roadmap geknüpft. Abbildung~\ref{fig:roadmap} zeigt eine gegliederte Darstellung dieser Roadmap in etwas vereinfachter Weise. %Wie bereits in Kapitel~\ref{chap:intro} erwähnt, sind die einzelnen Schritte während der gesamten Projektbearbeitung klar definiert.
-Der gesamte Prozess lässt sich in sechs Abschnitte gliedern. Jeder Abschnitt enthält wiederum verschiedene Schritte. Ein neuer Schritt wird erst abgearbeitet, wenn der vorangegangene abgeschlossen und durch BMW abgenommen ist.
-
-\section{Vorbereitung}
-Vor der eigentlichen Bearbeitung des Projektumfanges erhält der Anlagenhersteller eine aktuelle Version der Dokumente, die den Standard bilden. Das sind Dokumente folgender Kategorien:
-%\begin{spacing}{0.5}
-  \begin{itemize}
-    \itemsep0.1em
-    \item Kaufteile
-    \item Planung
-    \item EPLAN
-    \item Hardware Konstruktion
-    \item Antriebstechnik
-    \item IT-System Schnittstellen
-    \item Roboter
-    \item Visualisierung mit TIA-WinCC
-    \item Classic SPS Siemens SIAMTIC
-    \item Dokumentation
-    \item Fördertechnik
-    \item Allgemeines
-  \end{itemize}
-
-%\end{spacing}
-In seiner Gesamtheit umfasst der TMO V1 Standard über 250 Dokumente, die zu einem großen Teil im Excel-, Word- oder PDF-Format vorliegen. Neben einer ganzen Reihe an Richtlinien, steht eine Vielzahl an fertigen Projektvorlagen zur Verfügung. Diese erleichtern die spätere Bearbeitung und sorgen dafür, dass alle Projekte auf einer gleichen Basis aufbauen.
-
-Nach dem der Angebotsprozess abgeschlossen ist und die Formalitäten zwischen Anlagenbetreiber und Hersteller geklärt sind, findet schließlich der Kick Off auf Leitungsebene und anschließend auf technischer Ebene statt.
-
 \section{Steuerungskonzept}
 \label{sec:controlConcept}
 
-\subsection{Überblick}
+\subsection*{Überblick}
 
 Im ersten Projektierungsschritt wird ein Konzept erarbeitet, welches alle wesentlichen Komponenten der zukünftigen Anlage sowie deren Verknüpfung miteinander enthält (siehe Abb.~\ref{fig:controlConceptOverview}). Ziel des Steuerungskonzeptes ist es, eine Art Leitfaden für den gesamten Entwicklungsprozess zu schaffen, auf den sich Konstrukteure und Programmierer während des gesamten Projektes stützen können.
 Die folgenden Abschnitte enthalten jeweils Auszüge und dienen der Veranschaulichung des Inhaltes und Umfanges des Steuerungskonzepts. Das komplette Dokument liegt dem Bericht als Anhang~\ref{appndx:controlConcept} bei.
 
-\bild{t}{width=\textwidth}{controlConceptOverview}{Steuerungskonzept: Überblick}
+\bild{t}{trim =2cm 2.3cm 2cm 1cm, clip, width=0.8\textwidth }{controlConceptOverview}{Steuerungskonzept: Überblick}
 
-\subsection{Sicherheitstechnik}
+\subsection*{Sicherheitstechnik}
 
-Die Anlagensicherheit ist ein wichtiger Teil der Projektierung. Das Schema in Abbildung~\ref{fig:controlConceptSafety} zeigt die Verwendung einer Safety-SPS. Die Verbindung zu den dezentralen Komponenten wie ET200 SP oder ET200 PRO erfolgt über den Industrial-Ethernet-Standard PROFINET
+Die Anlagensicherheit ist ein wichtiger Teil der Projektierung. Das Schema in Abbildung~\ref{fig:controlConceptSafety} zeigt die Verwendung einer Safety-SPS\abbrev{SPS}{Speicherprogrammierbare Steuerung}. Die Verbindung zu den dezentralen Komponenten wie ET200 SP, ET200 PRO oder den Murr Safety Modulen erfolgt über den Industrial-Ethernet-Standard PROFINET
 \footnote{Profinet basiert auf Ethernet-TCP/IP und ergänzt die Profibus-Technologie für Anwendungen, bei denen schnelle Datenkommunikation über Ethernet-Netzwerke in Kombination mit industriellen IT-Funktionen gefordert wird. \citelonl{onl_profinet}}.
 Zur Datenübertragung dient das Protokoll PROFIsafe
 \footnote{Das PROFIsafe-System ist eine Erweiterung des Profibus- und PROFINET-Systems. Mit dem System können frei programmierbare Sicherheitsfunktionen ausgeführt und die hierfür notwendigen sicheren Ein- und Ausgangsdaten von und zu den sicheren I/O-Geräten übertragen werden.\citelonl{onl_profisafe}}.
 An die dezentrale Peripherie werden die sicherheitsrelevanten Baugruppen per digitaler Signale verbunden. Dafür werden spezielle sichere Eingangs- und Ausgangsbaugruppen verwendet. Konkret kommen in diesem Fall NOT-HALT-Taster, Türverriegelungen, Lichtvorhänge und Zustimmtaster zum Einsatz. Im Schema werden die einzelnen Komponenten nur mit jeweils einem Vertreter dargestellt.
+Der Detaillierungsgrad in der Darstellung der Sicherheitstechnik ist zwar nicht allzu hoch, zeigt aber den grundsätzlichen Aufbau. Aus der Abbildung geht hervor, dass die Verknüpfung aller sicherheitsrelevanter Komponenten innerhalb der Safety-Software geschieht. Hart verdrahtete Sicherheitskreise werden nicht verwendet.
 
-\bild{t}{width=\textwidth}{controlConceptSafety}{Steuerungskonzept: Sicherheitstechnik}
+\bild{t}{trim =2cm 4.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptSafety}{Steuerungskonzept: Sicherheitstechnik}
 
 
-\subsection{Antriebstechnik}
+\subsection*{Antriebstechnik}
 
-\subsection{Energieversorgung}
+\bild{t}{trim =1cm 3.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptDrives}{Steuerungskonzept: Antriebstechnik}
 
-\subsection{Softwarestruktur und Kommunikationswege}
+Die zu projektierende Roboterzelle verfügt über ein sehr übersichtliches Antriebskonzept. Lediglich die Fördertechnik wird mit Frequenzumrichter (FU\abbrev{FU}{Frequenzumrichter})-Antrieben ausgestattet. Es handelt sich um Movifit FC Antriebe der Firma SEW. Jeder FU ist in der Lage bis zu drei Motoren zu steuern. Darüber hinaus verfügen die Antriebe über sichere digitale Ein- und Ausgänge, welche anstelle dedizierter dezentraler Peripherie verwendet werden können.
+
+Die FUs werden an drei verschiedene Netze angeschlossen. Das \einh{24}{\volt}-Netz versorgt die digitalen Ein- und Ausgangsbaugruppen sowie den Steuerteil. Über das \einh{400}{\volt}-Netz wird die Leistung für die Motoren übertragen. Zur Kommunikation von Steuerbefehlen und Statusinformationen zwischen SPS und FUs erfolgt per PROFINET.
+
+\subsection*{Softwarestruktur und Kommunikationswege}
+
+\bild{t}{trim =1cm 2.3cm 1cm 2.3cm, clip, width=0.8\textwidth}{controlConceptSoftware}{Steuerungskonzept: Softwarestruktur und Kommunikationswege}
+
+Etwas komplexer als die Antriebstechnik ist der Aufbau der Softwarestruktur und Kommunikationswege. Abbildung~\ref{fig:controlConceptSoftware} veranschaulicht das Zusammenspiel aller Komponenten.
+
+Innerhalb der Station erfolgt sämtlicher Informationsaustausch software-basierter Baugruppen mittels PROFINET (grün dargestellt). Das Kernelement bildet die Siemens 319F SPS. In dieser laufen alle Informationen der Panels, FUs, Robotersteuerung und Schraubersteuerung zusammen.
+Die SPS dient als Kommunikationsknoten zwischen der Station und den übergeordneten IT-Netzen. Die einzige Ausnahme bildet die Schraubersteuerung. Sie kommuniziert ihre Daten ohne Umwege über die Steuerung direkt an das IPM-System.
+Als Gegenstand des Projektes werden nur die Anbindungen an die Systeme IPS\abbrev{IPS}{Internationales Produktionssystem}-Q\abbrev{IPS-Q}{Qualitätsnetz}, IPS-L\abbrev{IPS-L}{Logistiknetz} und IPS-T\abbrev{IPS-T}{Techniknetz} projektiert.
+
+
+% \subsection*{Energieversorgung}
+%
+% \bild{t}{trim =1cm 2.0cm 1cm 2.3cm, clip, width=0.8\textwidth}{controlConceptPower}{Steuerungskonzept: Energieversorgung}
