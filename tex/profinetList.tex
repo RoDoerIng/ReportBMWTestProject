@@ -1,0 +1,22 @@
+%% Profinet List
+
+%%%% SUBFILE %%%%
+% subfiles allows to compile from a subfile and not main document
+% to make it work in a folder structure, the root document needs to be specified
+% in each subfile with the following line (placed somewhere at the beginning):
+% !TEX root =  ../document.tex
+
+
+\section{PROFINET Liste}
+\label{sec:profinetList}
+
+\bild{t}{trim =1cm 9.4cm 1cm 1.3cm, clip, width=1\textwidth}{profinetList}{PROFINET-Liste}
+
+
+Ein weiterer Meilenstein im Anlagenentstehungsprozess (s. Abb.~\ref{fig:roadmap}) ist die Abnahme der PROFINET-Liste (PN-Liste\abbrev{PN}{PROFINET}). Dabei handelt es sich um ein Excel-Dokument, das nach der BMW-Vorlage angefertigt wird. Ein Ausschnitt der PN-Liste für das Testprojekt ist in Abbildung~\ref{fig:profinetList} dargestellt.
+
+Der obere Teil der Liste wird von der IT-Abteilung des Auftrag-vergebenden BMW-Standortes ausgefüllt. Neben dem Anlagenkennzeichen (AKZ\abbrev{AKZ}{Anlagenkennzeichen}) und dem Standort der Anlage, wird in diesem Teil die IP\abbrev{IP}{Internetprotokoll}-Netzkonfiguration festgelegt.
+
+Den unteren Teil füllt der Projektbearbeiter aus. Jeder PN-Teilnehmer erhält eine feste IP-Adresse im Rahmen der vorgegebenen Subnet-Maske. Weiterhin wird allen Geräten ein DNS-Name\abbrev{DNS}{Domain Name System} zugeordnet. Dieser setzt sich aus dem Kürzel für den Standort, dem AKZ und einer dreistelligen Device-ID zusammen. Die Device-ID ist ebenfalls in der PN-Liste zu finden. Zudem wird jedem PN-Teilnehmer ein S7-Gerätename\abbrev{S7}{STEP 7} und eine kurze Beschreibung gegeben.
+
+Entsprechend ihrer Typen belegen einige Gerät im PN-Netz einen festen Bereich im Prozessabbild der Eingangs- und Ausgangsdaten der SPS. In der PN-Liste werden jedem dieser Bereiche definierte Adressen zugeordnet. Dabei wird zwischen Standard-Adressen\abbrev{IO}{Input Output}, Safety-Adressen und Diagnose-Adressen (>2048) unterschieden.

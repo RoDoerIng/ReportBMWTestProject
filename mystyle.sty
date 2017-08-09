@@ -163,6 +163,19 @@ XML
 \addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
 \graphicspath{{./img/}}
 
+%% Physical Units
+\usepackage{units}
+\usepackage[]{siunitx}
+\DeclareSIUnit{\Bit}{bit}
+
+%% Abbreviations
+\usepackage[intoc]{nomencl}
+% Befehl umbenennen in abbrev
+\let\abbrev\nomenclature
+% Überschrift
+\renewcommand{\nomname}{Abkürzungsverzeichnis}
+\makenomenclature
+
 %%%%%%%%%%%%%%%%%%%%%%
 %%%% NEW COMMANDS %%%%
 %%%%%%%%%%%%%%%%%%%%%%

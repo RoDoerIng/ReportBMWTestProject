@@ -147,6 +147,8 @@ _minted*
 
 # nomencl
 *.nlo
+*.nls
+*.nlg
 
 # pax
 *.pax
