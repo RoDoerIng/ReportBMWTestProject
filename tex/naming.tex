@@ -7,5 +7,42 @@
 % !TEX root =  ../document.tex
 
 
-\section{Benennung Funktionsgruppen und Stellgeräte}
+\section{Anlagenkennzeichnung}
 \label{sec:naming}
+
+\subsection*{Masterstring}
+\label{subsec:masterstring}
+
+
+\bild{b}{trim =1cm 14cm 1cm 1.3cm, clip, width=1\textwidth}{namingMasterstring}{Anlagenkennzeichnungssystem: Masterstring}
+
+
+Jedes Bauteil in einer nach TMO V1 Standard entworfenen Anlage besitzt ein Betriebsmittelkennzeichen (BMK\abbrev{BMK}{Betriebsmittelkennzeichen}), welches nach dem BMW-Anlagenkennzeichnungssystem ermittelt wird. Als Leitfaden für die Ermittlung der einzelnen BMK enthält der Standard eine sehr umfangreiche Excel-Arbeitsmappe, in der die einzelnen Zeichen und deren Bedeutung detailliert beschrieben sind.
+Neben der BMK ist im Anlagenkennzeichnungssystem auch die Benennung des Anlagenstandortes sowie des Anlagennamen definiert. Die Aneinanderreihung des Anlagenstandortes, Anlagennamen und des BMK ergibt den Masterstring. Dessen Aufbau ist tabellarisch in Abbildung~\ref{fig:masterstring} dargestellt. Anhand des Masterstrings ist eine eindeutige Zuordnung jedes Betriebsmittels innerhalb der Montage von BMW möglich.
+Für das Testprojekt lauten Anlagenstandort und -name \textbf{==071090500=M9TA1G01}. Die Zusammensetzung geht aus folgender Aufstellung hervor:
+
+\begin{tabbing}
+  \textbf{==\hspace{0.5cm}} \= vorangestelltes Trennzeichen \\
+  \textbf{07} \> BMW-interne Werksnummer (Hauptgruppe) \\
+  \textbf{10} \> BMW-interne Werksnummer (Untergruppe) \\
+  \textbf{9} \> Technologiekennung Fahrzeugmontage \\
+  \textbf{050} \> Gebäudenummer \\
+  \textbf{0} \> Gebäudeteil \\
+  \textbf{=} \> Trennzeichen \\
+  \textbf{M9} \> Technologie Montage \\
+  \textbf{TA1} \> Testanlage 1 \\
+  \textbf{G01} \> Gruppensteuerung 1
+\end{tabbing}
+
+\subsection*{Überblick Gesamtanlage}
+\label{subsec:namingOverview}
+
+\bild{t}{trim =0.0cm 1cm 0.0cm 2.1cm, clip, width=1\textwidth}{namingOverview}{Anlagenkennzeichnungssystem: Überblick Gesamtanlage}
+
+Bei der Vergabe der BMK wird ein Top-Down-Verfahren angewendet. Dabei wird zunächst eine Grobgliederung nach Aufstellungsort und Einbauort (Vgl. Abb.~\ref{fig:namingMasterstring}) vorgenommen. Für die vorliegende Roboter-Zelle ergibt sich folgende Einteilung:
+
+\begin{description}
+  \item[++ST000] Schaltschränke, Panels
+  \item[++ST001] Roboterstation
+  \item[++FT002] Fördertechnik
+\end{description}
