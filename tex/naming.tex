@@ -18,7 +18,7 @@
 
 
 Jedes Bauteil in einer nach TMO V1 Standard entworfenen Anlage besitzt ein Betriebsmittelkennzeichen (BMK\abbrev{BMK}{Betriebsmittelkennzeichen}), welches nach dem BMW-Anlagenkennzeichnungssystem ermittelt wird. Als Leitfaden für die Ermittlung der einzelnen BMK enthält der Standard eine sehr umfangreiche Excel-Arbeitsmappe, in der die einzelnen Zeichen und deren Bedeutung detailliert beschrieben sind.
-Neben der BMK ist im Anlagenkennzeichnungssystem auch die Benennung des Anlagenstandortes sowie des Anlagennamen definiert. Die Aneinanderreihung des Anlagenstandortes, Anlagennamen und des BMK ergibt den Masterstring. Dessen Aufbau ist tabellarisch in Abbildung~\ref{fig:masterstring} dargestellt. Anhand des Masterstrings ist eine eindeutige Zuordnung jedes Betriebsmittels innerhalb der Montage von BMW möglich.
+Neben der BMK ist im Anlagenkennzeichnungssystem auch die Benennung des Anlagenstandortes sowie des Anlagennamen definiert. Die Aneinanderreihung des Anlagenstandortes, Anlagennamen und des BMK ergibt den Masterstring. Dessen Aufbau ist tabellarisch in Abbildung~\ref{fig:namingMasterstring} dargestellt. Anhand des Masterstrings ist eine eindeutige Zuordnung jedes Betriebsmittels innerhalb der Montage von BMW möglich.
 Für das Testprojekt lauten Anlagenstandort und -name \textbf{==071090500=M9TA1G01}. Die Zusammensetzung geht aus folgender Aufstellung hervor:
 
 \begin{tabbing}
@@ -41,8 +41,28 @@ Für das Testprojekt lauten Anlagenstandort und -name \textbf{==071090500=M9TA1G
 
 Bei der Vergabe der BMK wird ein Top-Down-Verfahren angewendet. Dabei wird zunächst eine Grobgliederung nach Aufstellungsort und Einbauort (Vgl. Abb.~\ref{fig:namingMasterstring}) vorgenommen. Für die vorliegende Roboter-Zelle ergibt sich folgende Einteilung:
 
+\leer\textbf{++Aufstellungsort+Einbauort}
 \begin{description}
   \item[++ST000] Schaltschränke, Panels
+  \begin{description}
+      \item [+CE001] Einspeiseschrank
+      \item [+CC001] Steuerschrank
+      \item [+CD001] Antriebsschrank
+      \item [+OP001] Panel Fertigungstechnik
+      \item [+OP002] Panel Fördertechnik
+  \end{description}
   \item[++ST001] Roboterstation
+  \begin{description}
+    \item [CF001\ldots002] Schutzzäune
+    \item [CD001] Schutztür
+    \item [CR001] Robotersteuerung
+    \item [IR001] Industrieroboter
+  \end{description}
   \item[++FT002] Fördertechnik
+  \begin{description}
+    \item [TL001] Zuführung
+    \item [TL002] Bearbeitung
+    \item [TL003] Weiterführung
+  \end{description}
 \end{description}
+
