@@ -127,6 +127,19 @@ XML
 \newcites{lpic}{Bildquellen}
 \newcites{llit}{Literaturquellen}
 
+%% Tables
+\usepackage{tabularx}		%% Tabellen mit etwas mehr Modifikationsm�glichkeiten
+% \usepackage{array}
+% \usepackage{multirow}
+%\usepackage{booktabs}		%% Linien verschiedener Dicke in Tabelle
+	\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+	\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+	\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+	\newcommand{\lft}{\raggedright\arraybackslash} % Tabellenabschnitt linksbündig
+	\newcommand{\cntr}{\centering\arraybackslash} % Tabellenabschnitt zentriert
+	\newcommand{\rght}{\raggedleft\arraybackslash} % Tabellenabschnitt rechtsbündig
+% \usepackage{ltxtable}		%% longtable mit tabularx-Formatierung aus externer Datei einbinden
+
 %% Links in PDF document
 % Verlinkungen im PDF-Dokument
 \usepackage[
@@ -140,7 +153,8 @@ XML
         bookmarksopen=true,
         bookmarksopenlevel=3,
         plainpages=false,
-        pdfpagelabels=true]{hyperref}
+		pdfpagelabels=true]{hyperref}
+\hypersetup{final}		%creates links even in draft mode
 
 %% Graphics
 %\usepackage{graphics}

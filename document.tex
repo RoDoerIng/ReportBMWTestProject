@@ -10,9 +10,10 @@
   %%PPP
   bibliography=totoc,
   %liststotoc,
-  %listof=totoc,;
+  listof=totoc,   %brings listof instructions to toc
   %pointlessnumbers,
-  final
+  draft
+  % final
 ]
 {scrbook}
 % {scrreprt}
@@ -27,6 +28,7 @@
 \frontmatter
 \subfile{tex/titlepage}
 \tableofcontents
+\listoffigures
 \printnomenclature%
 
 %% Hauptteil
@@ -41,6 +43,7 @@
 \subfile{tex/controlConcept}
 \subfile{tex/profinetList}
 \subfile{tex/naming}
+\subfile{tex/testingRack}
 
 
 

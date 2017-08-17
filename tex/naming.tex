@@ -19,50 +19,88 @@
 
 Jedes Bauteil in einer nach TMO V1 Standard entworfenen Anlage besitzt ein Betriebsmittelkennzeichen (BMK\abbrev{BMK}{Betriebsmittelkennzeichen}), welches nach dem BMW-Anlagenkennzeichnungssystem ermittelt wird. Als Leitfaden für die Ermittlung der einzelnen BMK enthält der Standard eine sehr umfangreiche Excel-Arbeitsmappe, in der die einzelnen Zeichen und deren Bedeutung detailliert beschrieben sind.
 Neben der BMK ist im Anlagenkennzeichnungssystem auch die Benennung des Anlagenstandortes sowie des Anlagennamen definiert. Die Aneinanderreihung des Anlagenstandortes, Anlagennamen und des BMK ergibt den Masterstring. Dessen Aufbau ist tabellarisch in Abbildung~\ref{fig:namingMasterstring} dargestellt. Anhand des Masterstrings ist eine eindeutige Zuordnung jedes Betriebsmittels innerhalb der Montage von BMW möglich.
-Für das Testprojekt lauten Anlagenstandort und -name \textbf{==071090500=M9TA1G01}. Die Zusammensetzung geht aus folgender Aufstellung hervor:
+Für das Testprojekt lauten Anlagenstandort und -name \textbf{\texttt{==071090500=M9TA1G01}}. Die Zusammensetzung geht aus folgender Aufstellung hervor:
 
-\begin{tabbing}
-  \textbf{==\hspace{0.5cm}} \= vorangestelltes Trennzeichen \\
-  \textbf{07} \> BMW-interne Werksnummer (Hauptgruppe) \\
-  \textbf{10} \> BMW-interne Werksnummer (Untergruppe) \\
-  \textbf{9} \> Technologiekennung Fahrzeugmontage \\
-  \textbf{050} \> Gebäudenummer \\
-  \textbf{0} \> Gebäudeteil \\
-  \textbf{=} \> Trennzeichen \\
-  \textbf{M9} \> Technologie Montage \\
-  \textbf{TA1} \> Testanlage 1 \\
-  \textbf{G01} \> Gruppensteuerung 1
-\end{tabbing}
+\begin{tabularx}{0.92\textwidth}{rX}
+  & \\  
+  \textbf{\texttt{==}} & vorangestelltes Trennzeichen \\
+  \textbf{\texttt{07}} & BMW-interne Werksnummer (Hauptgruppe) \\
+  \textbf{\texttt{10}} & BMW-interne Werksnummer (Untergruppe) \\
+  \textbf{\texttt{9}} & Technologiekennung Fahrzeugmontage \\
+  \textbf{\texttt{050}} & Gebäudenummer \\
+  \textbf{\texttt{0}} & Gebäudeteil \\
+  \textbf{\texttt{=}} & Trennzeichen \\
+  \textbf{\texttt{M9}} & Technologie Montage \\
+  \textbf{\texttt{TA1}} & Testanlage 1 \\
+  \textbf{\texttt{G01}} & Gruppensteuerung 1
+\end{tabularx}
+
+% \begin{tabbing}
+%   \textbf{\texttt{==}\hspace{0.5cm}} \= vorangestelltes Trennzeichen \\
+%   \textbf{\texttt{07}} \> BMW-interne Werksnummer (Hauptgruppe) \\
+%   \textbf{\texttt{10}} \> BMW-interne Werksnummer (Untergruppe) \\
+%   \textbf{\texttt{9}} \> Technologiekennung Fahrzeugmontage \\
+%   \textbf{\texttt{050}} \> Gebäudenummer \\
+%   \textbf{\texttt{0}} \> Gebäudeteil \\
+%   \textbf{\texttt{=}} \> Trennzeichen \\
+%   \textbf{\texttt{M9}} \> Technologie Montage \\
+%   \textbf{\texttt{TA1}} \> Testanlage 1 \\
+%   \textbf{\texttt{G01}} \> Gruppensteuerung 1
+% \end{tabbing}
 
 \subsection*{Überblick Gesamtanlage}
 \label{subsec:namingOverview}
 
-\bild{t}{trim =0.0cm 1cm 0.0cm 2.1cm, clip, width=1\textwidth}{namingOverview}{Anlagenkennzeichnungssystem: Überblick Gesamtanlage}
+\bild{t}{trim =0.0cm 1cm 0.0cm 2.1cm, clip, width=0.8\textwidth}{namingOverview}{Anlagenkennzeichnungssystem: Überblick Gesamtanlage}
 
-Bei der Vergabe der BMK wird ein Top-Down-Verfahren angewendet. Dabei wird zunächst eine Grobgliederung nach Aufstellungsort und Einbauort (Vgl. Abb.~\ref{fig:namingMasterstring}) vorgenommen. Für die vorliegende Roboter-Zelle ergibt sich folgende Einteilung:
+Bei der Vergabe der BMK wird ein Top-Down-Verfahren angewendet. Dabei wird zunächst eine Grobgliederung nach Aufstellungsort und Einbauort (Vgl. Abb.~\ref{fig:namingMasterstring}) vorgenommen. Für die vorliegende Roboter-Zelle ergibt sich die nachstehende Einteilung nach dem Schema \textbf{\texttt{++Aufstellungsort+Einbauort}}:
 
-\leer\textbf{++Aufstellungsort+Einbauort}
+% \leer\textbf{\texttt{++Aufstellungsort+Einbauort}}
 \begin{description}
-  \item[++ST000] Schaltschränke, Panels
+  \itemsep0.1em
+  \item[\texttt{++ST000}] Schaltschränke, Panels
   \begin{description}
-      \item [+CE001] Einspeiseschrank
-      \item [+CC001] Steuerschrank
-      \item [+CD001] Antriebsschrank
-      \item [+OP001] Panel Fertigungstechnik
-      \item [+OP002] Panel Fördertechnik
+    \item [\texttt{+CE001}] Einspeiseschrank
+    \item [\texttt{+CC001}] Steuerschrank
+    \item [\texttt{+CD001}] Antriebsschrank
+    \item [\texttt{+OP001}] Panel Fertigungstechnik
+    \item [\texttt{+OP001}] Panel Fördertechnik
   \end{description}
-  \item[++ST001] Roboterstation
+  \item[\texttt{++ST001}] Roboterstation
   \begin{description}
-    \item [CF001\ldots002] Schutzzäune
-    \item [CD001] Schutztür
-    \item [CR001] Robotersteuerung
-    \item [IR001] Industrieroboter
+    \item [\texttt{+CF001}\ldots\texttt{002}] Schutzzäune
+    \item [\texttt{+CD001}] Schutztür
+    \item [\texttt{+CR001}] Robotersteuerung
+    \item [\texttt{+IR001}] Industrieroboter
   \end{description}
-  \item[++FT002] Fördertechnik
+  \item[\texttt{++FT002}] Fördertechnik
   \begin{description}
-    \item [TL001] Zuführung
-    \item [TL002] Bearbeitung
-    \item [TL003] Weiterführung
+    \item [\texttt{+TL001}] Zuführung
+    \item [\texttt{+TL002}] Bearbeitung
+    \item [\texttt{+TL003}] Weiterführung
   \end{description}
 \end{description}
 
+Die Kennzeichen für Aufstellungsort und Einbauort weisen die gleiche Syntax auf. Vorangestellt ist jeweils ein Trennzeichen. Dieses wird gefolgt von einem Funktionskürzel, anhand dessen die Art des Aufstellungs-/Einbauortes erkennbar ist (z.B. \texttt{\textbf{FT}}: Fördertechnik, \texttt{\textbf{TL}}: Transportförder Längs). Zudem hat jedes Kürzel eine angehängte, dreistellige laufende Nummer. Bei dieser Nummer ist zu beachten, dass die Aufstellungsorte unabhängig von ihrem Funktionskürzel hochgezählt werden. Beim Einbauort wird für jedes Funktionskürzel bei der Nummer 001 begonnen.
+
+\bild{b}{trim =2.5cm 1.9cm 13.8cm 7.6cm, clip, width=0.6\textwidth}{namingRobot}{Anlagenkennzeichnungssystem: Detaillierte Betriebsmittelkennzeichnung}
+
+Im Anschluss an die Grobgliederung folgt die Kennzeichnung einzelner Betriebsmittel wie Sicherungen, SPSn, Netzteile, Zylinder und Sensoren. Eine derartige Kennzeichnung ist in Abbildung~\ref{fig:namingRobot} am Beispiel des Roboters und dessen Greifer dargestellt. In diesem Fall kommen zur eindeutigen Beschreibung der Elemente auch optionale Felder zum Einsatz. Die Bezeichnung \texttt{\textbf{++ST001+IR001.FG001-MM01.01-BG11}} des Endlagensensors für die vordere Endlage von Zylinder 1 erklärt sich wie folgt:
+
+
+\begin{tabularx}{0.92\textwidth}{rX}
+  & \\
+  \textbf{\texttt{++ST001}} & Roboterstation (Aufstellungsort)\\
+  \textbf{\texttt{+IR001}} & Industrieroboter (Einbauort)\\
+  \textbf{\texttt{.FG001}} & Greifer (Einbauort optional)\\
+  \textbf{\texttt{-M}} & Bereitstellung mechanischer Energie\\
+  \textbf{\texttt{M}} & Antrieb durch fluidtechnische, pneumatische Kraft\\
+  \textbf{\texttt{0}} & Antriebsrichtung (Allgemein)\\
+  \textbf{\texttt{1}} & Antrieb-Nummer\\
+  \textbf{\texttt{.01}} & Zylinder 1 (lfd. Nummer für Aktor)\\
+  \textbf{\texttt{-BG}} & Endlagensensor (BMK Sensorik)\\
+  \textbf{\texttt{1}} & lfd. Nummer Sensorik mit gleicher Abfrage\\
+  \textbf{\texttt{1}} & Eigenschaft der Positionsabfrage (vorn)
+\end{tabularx}
+
+\leer Das Anlagenkennzeichnungssystem findet Anwendung bei der Benennung aller Elemente innerhalb der Anlage. Dadurch ist es problemlos möglich die Elektrokonstruktion, Mechanik und Software zu synchronisieren. Neben der Beschriftung der Bauteile im Schaltplan, im Schaltschrank und der Baugruppen direkt in der Anlage werden die Kennzeichen auch für die Benennung von Variablen, Ein-/Ausgängen und Code-Bausteinen innerhalb der Software verwendet. Im Fall von Wartungs-, Instandsetzungs- oder Erweiterungsarbeiten erleichtert diese Vorgehensweise die Arbeit enorm. Auch Fremdfirmen finden sich schnell in einer Anlage zurecht, sofern sie den Standard kennen.
