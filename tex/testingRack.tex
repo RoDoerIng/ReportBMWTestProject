@@ -7,3 +7,30 @@
 % !TEX root =  ../document.tex
 
 \chapter{Test- und Präsentationsaufbau}
+
+\section{Motivation}
+\label{sec:testingRackMotivation}
+
+Das Testprojekt gilt als abgeschlossen, wenn die von BMW gestellten Anforderungen umgesetzt worden sind. Das betrifft zum Einen die formellen Anforderungen an den Anlagenentstehungsprozess und die daraus hervorgehenden Dokumente und zum Anderen die funktionalen Anforderungen an die Software. Zur Software zählen in diesem Fall das SPS-Programm, das HMI\abbrev{HMI}{Human Machine Interface} und die Anbindung an das IT-Netzwerk. 
+
+Damit die funktionalen Anforderungen abgenommen werden können, bedarf es einer Vorführung. Die Anlage entsteht nur virtuell, wodurch es keine Möglichkeit gibt, die Software unter realen Bedingungen zu testen. Für SPS und HMI bestünde die Möglichkeit, eine Simulation mit PLCSim und einer HMI-Desktop-Runtime zu erstellen und so die Funktion nachzuweisen. Selbst für die IPSx-Systeme liefert BMW eine Simulationsumgebung mit der Bezeichnung ICOMM mit. Mit den aktuellen Versionen von ICOMM und PLCSim ist es allerdings nicht möglich, eine Verbindung untereinander herzustellen. Dadurch entsteht die Notwendigkeit, die entwickelte Software auf einer realen SPS laufen zu lassen.
+
+\section{Komponentenauswahl und Aufbau}
+\label{sec:componentsAndAssembly}
+
+Als Grundlage für die Hardware-Projektierung dient eine Bauteil-Liste, die Bestandteil der Standard-Dokumentensammlung ist. Diese Liste liegt in Form einer sehr umfangreichen Excel-Arbeitsmappe vor. Darin enthalten ist eine Vielzahl an Bauteilen aus den Domänen Elektrotechnik, Steuerungstechnik, Mechatronik und Mechanik, auf die bei der Projektierung vorzugsweise zurückgegriffen werden soll. Abweichungen von der Liste müssen beim verantwortlichen BMW-Projektleiter mittels Formular beantragt werden.
+
+ Neben der Bauteil-Liste gehen folgende Anforderungen in die Komponentenauswahl ein:
+
+ \begin{enumerate}
+    \itemsep0.1em
+     \item geringe bis mittlere Anlagen-Komplexität
+     \item PROFINET-Fähigkeit
+     \item F-CPU
+    %  \item 
+ \end{enumerate}
+
+% Zur softwaretechnischen Projektierung einer SPS sieht der TMO V1 Standard die Verwendung des Simatic Managers vor. Die Auswahl an Steuerungen beschränkt sich auf die Serien S7-300 und S7-400. Unter Einbezug des verhältnismäßig geringen Umfangs der Anlage und Berücksichtigung der Tatsache, dass eine F-CPU benötigt wird fällt die Wahl auf eine S7-317F
+
+
+
