@@ -18,17 +18,20 @@ Damit die funktionalen Anforderungen abgenommen werden können, bedarf es einer 
 \section{Komponentenauswahl und Aufbau}
 \label{sec:componentsAndAssembly}
 
-Als Grundlage für die Hardware-Projektierung dient eine Bauteil-Liste, die Bestandteil der Standard-Dokumentensammlung ist. Diese Liste liegt in Form einer sehr umfangreichen Excel-Arbeitsmappe vor. Darin enthalten ist eine Vielzahl an Bauteilen aus den Domänen Elektrotechnik, Steuerungstechnik, Mechatronik und Mechanik, auf die bei der Projektierung vorzugsweise zurückgegriffen werden soll. Abweichungen von der Liste müssen beim verantwortlichen BMW-Projektleiter mittels Formular beantragt werden.
+Als Grundlage für die Hardware-Projektierung dient eine Bauteil-Liste, die Bestandteil der Standard-Dokumentensammlung ist. Diese Liste liegt in Form einer sehr umfangreichen Excel-Arbeitsmappe vor. Darin enthalten ist eine Vielzahl an Bauteilen aus den Domänen Elektrotechnik, Steuerungstechnik, Mechatronik und Mechanik, auf die bei der Projektierung vorzugsweise zurückgegriffen werden soll. Abweichungen von der Liste dürfen nur in Absprache mit dem verantwortlichen BMW-Projektleiter stattfinden.
 
- Neben der Bauteil-Liste gehen folgende Anforderungen in die Komponentenauswahl ein:
+Ungeachtet der Bauteil-Liste gehen folgende technischen Anforderungen ebenfalls in die Komponentenauswahl ein:
 
  \begin{enumerate}
     \itemsep0.1em
-     \item geringe bis mittlere Anlagen-Komplexität
-     \item PROFINET-Fähigkeit
-     \item F-CPU
-    %  \item 
+    \item geringe bis mittlere Anlagen-Komplexität
+    \item PROFINET-Fähigkeit
+    \item F-CPU
+    \item digitale Ein-/Ausgänge
+    \item sichere digitale Eingänge
  \end{enumerate}
+
+ Hinzu kommen nicht technische Anforderungen, die seitens der OSB gelten. Da es sich um ein Non-Profit-Projekt handelt und eine Wiederverwendbarkeit der Hardware für zukünftige Projekte nicht garantiert ist, sind die Hardware-Kosten so niedrig wie möglich zu halten. Das hat zur Folge, dass für den Testaufbau lediglich 
 
 % Zur softwaretechnischen Projektierung einer SPS sieht der TMO V1 Standard die Verwendung des Simatic Managers vor. Die Auswahl an Steuerungen beschränkt sich auf die Serien S7-300 und S7-400. Unter Einbezug des verhältnismäßig geringen Umfangs der Anlage und Berücksichtigung der Tatsache, dass eine F-CPU benötigt wird fällt die Wahl auf eine S7-317F
 
