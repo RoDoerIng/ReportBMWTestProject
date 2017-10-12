@@ -9,14 +9,14 @@
 \section{Steuerungskonzept}
 \label{sec:controlConcept}
 
-\subsection*{Überblick}
+\subsection{Überblick}
 
 Im ersten Projektierungsschritt wird ein Konzept erarbeitet, welches alle wesentlichen Komponenten der zukünftigen Anlage sowie deren Verknüpfung miteinander enthält (siehe Abb.~\ref{fig:controlConceptOverview}). Ziel des Steuerungskonzeptes ist es, eine Art Leitfaden für den gesamten Entwicklungsprozess zu schaffen, auf den sich Konstrukteure und Programmierer während des gesamten Projektes stützen können.
 Die folgenden Abschnitte enthalten jeweils Auszüge und dienen der Veranschaulichung des Inhaltes und Umfanges des Steuerungskonzepts. Das komplette Dokument liegt dem Bericht als Anhang~\ref{appndx:controlConcept} bei.
 
 \bild{t}{trim =2cm 2.3cm 2cm 1cm, clip, width=0.8\textwidth }{controlConceptOverview}{Steuerungskonzept: Überblick}
 
-\subsection*{Sicherheitstechnik}
+\subsection{Sicherheitstechnik}
 
 Die Anlagensicherheit ist ein wichtiger Teil der Projektierung. Das Schema in Abbildung~\ref{fig:controlConceptSafety} zeigt die Verwendung einer Safety-SPS\abbrev{SPS}{Speicherprogrammierbare Steuerung}. Die Verbindung zu den dezentralen Komponenten wie ET200 SP, ET200 PRO oder den Murr Safety Modulen erfolgt über den Industrial-Ethernet-Standard PROFINET
 \footnote{Profinet basiert auf Ethernet-TCP/IP und ergänzt die Profibus-Technologie für Anwendungen, bei denen schnelle Datenkommunikation über Ethernet-Netzwerke in Kombination mit industriellen IT-Funktionen gefordert wird. \citelonl{onl_profinet}}.
@@ -28,7 +28,7 @@ Der Detaillierungsgrad in der Darstellung der Sicherheitstechnik ist zwar nicht 
 \bild{t}{trim =2cm 4.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptSafety}{Steuerungskonzept: Sicherheitstechnik}
 
 
-\subsection*{Antriebstechnik}
+\subsection{Antriebstechnik}
 
 \bild{t}{trim =1cm 3.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptDrives}{Steuerungskonzept: Antriebstechnik}
 
@@ -36,7 +36,7 @@ Die zu projektierende Roboterzelle verfügt über ein sehr übersichtliches Antr
 
 Die FUs werden an drei verschiedene Netze angeschlossen. Das \einh{24}{\volt}-Netz versorgt die digitalen Ein- und Ausgangsbaugruppen sowie den Steuerteil. Über das \einh{400}{\volt}-Netz wird die Leistung für die Motoren übertragen. Zur Kommunikation von Steuerbefehlen und Statusinformationen zwischen SPS und FUs erfolgt per PROFINET.
 
-\subsection*{Softwarestruktur und Kommunikationswege}
+\subsection{Softwarestruktur und Kommunikationswege}
 
 \bild{t}{trim =1cm 2.3cm 1cm 2.3cm, clip, width=0.8\textwidth}{controlConceptSoftware}{Steuerungskonzept: Softwarestruktur und Kommunikationswege}
 

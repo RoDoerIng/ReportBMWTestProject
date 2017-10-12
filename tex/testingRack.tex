@@ -13,7 +13,7 @@
 
 Das Testprojekt gilt als abgeschlossen, wenn die von BMW gestellten Anforderungen umgesetzt worden sind. Das betrifft zum Einen die formellen Anforderungen an den Anlagenentstehungsprozess und die daraus hervorgehenden Dokumente und zum Anderen die funktionalen Anforderungen an die Software. Zur Software zählen in diesem Fall das SPS-Programm, das HMI\abbrev{HMI}{Human Machine Interface} und die Anbindung an das IT-Netzwerk. 
 
-Damit die funktionalen Anforderungen abgenommen werden können, bedarf es einer Vorführung. Die Anlage entsteht nur virtuell, wodurch es keine Möglichkeit gibt, die Software unter realen Bedingungen zu testen. Für SPS und HMI bestünde die Möglichkeit, eine Simulation mit PLCSim und einer HMI-Desktop-Runtime zu erstellen und so die Funktion nachzuweisen. Selbst für die IPSx-Systeme liefert BMW eine Simulationsumgebung mit der Bezeichnung ICOMM mit. Mit den aktuellen Versionen von ICOMM und PLCSim ist es allerdings nicht möglich, eine Verbindung untereinander herzustellen. Dadurch entsteht die Notwendigkeit, die entwickelte Software auf einer realen SPS laufen zu lassen.
+Damit die funktionalen Anforderungen abgenommen werden können, bedarf es einer Vorführung. Die Anlage entsteht nur virtuell, wodurch es keine Möglichkeit gibt, die Software unter realen Bedingungen zu testen. Für SPS und HMI bestünde die Möglichkeit, eine Simulation mit PLCSim und einer HMI-Desktop-Runtime zu erstellen und so die Funktion nachzuweisen. Selbst für die IPS-X-Systeme liefert BMW eine Simulationsumgebung mit der Bezeichnung ICOMM mit. Mit den aktuellen Versionen von ICOMM und PLCSim ist es allerdings nicht möglich, eine Verbindung untereinander herzustellen. Dadurch entsteht die Notwendigkeit, die entwickelte Software auf einer realen SPS laufen zu lassen.
 
 \section{Komponentenauswahl und Aufbau}
 \label{sec:componentsAndAssembly}
@@ -33,9 +33,10 @@ Als Grundlage für die Hardware-Projektierung dient eine Bauteil-Liste, die Best
 
  Bei dem Testaufbau werden die technischen Anforderungen, welche sich aus dem Umfang der Aufgabe ergeben, begleitet von nicht technischen Anforderungen, die seitens der OSB gelten. Da es sich um ein Non-Profit-Projekt handelt und eine Wiederverwendbarkeit der Hardware für zukünftige Projekte nicht garantiert ist, sind die Hardware-Kosten so niedrig wie möglich zu halten. Das hat zur Folge, dass für den Testaufbau lediglich gebrauchte Baugruppen verwendet werden. Tabelle~\ref{tab:testingrackParts} zeigt eine Auswahl an steuerungstechnischen Baugruppen, die der Realisierung des Testaufbaus dienen.
 
-\begin{table}[t]
+ 
+ \begin{table}[t]
     \centering
-    \footnotesize
+    % \footnotesize
     \caption{Bauteilliste Testaufbau}
     \label{tab:testingrackParts}
     \begin{tabularx}{\textwidth}{L{1.5cm}XL{3.3cm}R{1.0cm}}
@@ -57,23 +58,51 @@ Als Grundlage für die Hardware-Projektierung dient eine Bauteil-Liste, die Best
 
 Zusätzlich zu den aufgelisteten Baugruppen werden Bauelemente aus der Elektrotechnik benötigt, um eine Verbindung der Baugruppen untereinander herzustellen. Dazu gehören:
 
-\begin{enumerate}
-    \itemsep 0.05em
-    \item Reihenklemmen
-    \item Reihenklemmen Abschlussplatten
-    \item Klemmleisten Endklemmen
-    \item Anschlussleitung mit Schutzkontakt-Stecker 3 x \einh{1.5}{\milli\metre\squared}
-    \item Aderleitung schwarz \einh{1.0}{\milli\metre\squared}
-    \item Aderleitung blau \einh{0.75}{\milli\metre\squared}
-    \item Netzwerkkabel mit RJ45 Stecker 
-    \item \einh{0.5}{\metre} Hutschiene \einh{35}{\milli\metre} x \einh{7.5}{\milli\metre}
-    \item \einh{2.5}{\metre} Verdrahtungskanal \einh{45}{\milli\metre} x \einh{45}{\milli\metre}
-    \item NOT-HALT Taster zweikanalig mit Meldeleuchte
-\end{enumerate}
+\begin{table}[H]
+    \centering
+    % \footnotesize
+    \caption{Elektrotechnisches Zusatzmaterial}
+    \label{tab:additionalComponents}
+    \begin{tabularx}{\textwidth}{C{1cm}L{7.5cm}XL{1cm}}
+        \hline
+        lfd. Nr. & Bezeichnung                                & Variante                                           & Anzahl             \\ \hline
+        1       & NOT-HALT Taster mit Meldeleuchte, zweikanalig                           &                        & 1                  \\ 
+        2        & Reihenklemmen                              & \einh{1.5}{\milli\metre\squared}                   & 15                 \\
+        3        & Reihenklemmen Abschlussplatten             &                                                    & 2                  \\
+        4        & Klemmleisten Endklemmen                    &                                                    & 4                  \\
+        5        & Aderleitung schwarz                        & \einh{1.0}{\milli\metre\squared}                   & \einh{10}{\metre}  \\
+        6        & Aderleitung blau                           & \einh{1.0}{\milli\metre\squared}                   & \einh{10}{\metre}  \\
+        7        & Netzwerkkabel mit RJ45 Stecker             & \einh{1}{\metre}                                   & 3                  \\
+        8        & Hutschiene                                 & \einh{35}{\milli\metre} x \einh{7.5}{\milli\metre} & \einh{0.5}{\metre} \\
+        9        & Verdrahtungskanal                          & \einh{45}{\milli\metre} x \einh{45}{\milli\metre}  & \einh{2.5}{\metre} \\
+        10        & Anschlussleitung mit Schutzkontakt-Stecker & 3 x \einh{1.5}{\milli\metre\squared}               & \einh{1.5}{\metre} \\ \hline
+    \end{tabularx}
+\end{table}
 
-\bild{t}{width=0.8\textwidth}{testingRack}{Präsentationsaufbau: Prinzipdarstellung}
+% \begin{enumerate}
+%     \itemsep 0.05em
+%     \item Reihenklemmen
+%     \item Reihenklemmen Abschlussplatten
+%     \item Klemmleisten Endklemmen
+%     \item Anschlussleitung mit Schutzkontakt-Stecker 3 x \einh{1.5}{\milli\metre\squared}
+%     \item Aderleitung schwarz \einh{1.0}{\milli\metre\squared}
+%     \item Aderleitung blau \einh{0.75}{\milli\metre\squared}
+%     \item Netzwerkkabel mit RJ45 Stecker 
+%     \item \einh{0.5}{\metre} Hutschiene \einh{35}{\milli\metre} x \einh{7.5}{\milli\metre}
+%     \item \einh{2.5}{\metre} Verdrahtungskanal \einh{45}{\milli\metre} x \einh{45}{\milli\metre}
+%     \item NOT-HALT Taster zweikanalig mit Meldeleuchte
+% \end{enumerate}
+\nopagebreak
+
+
+\bild{t}{trim=0 4cm 0 2cm,width=0.8\textwidth}{testingRack}{Präsentationsaufbau: 3D-Prinzipdarstellung}
 
 Damit ein ganzheitlicher Präsentationsaufbau entsteht, werden alle Komponenten auf einem Testgestellt ähnlich dem Modell in Abbildung~\ref{fig:testingRack} montiert. Dafür wird ein simpler Aufbau, bestehend aus einem Aluminiumprofil-Rahmen, einer verzinkten Lochrasterplatte und den darauf montierten Verdrahtungskanälen und Hutschienen vorgesehen. 
+
+Der Testaufbau verfügt über eine Einspeise-Klemmleiste, die mittels Anschlussleitung an das \einh{230}{\volt}-Netz angeschlossen ist. Die Spannungsversorgung der Automatisierungskomponenten erfolgt über ein Netzteil der Firma Siemens (siehe~\ref{tab:testingrackParts}). Die \einh{24}{\volt} Gleichspannung wird schließlich mithilfe einer zweiten Klemmleiste auf die Verbraucher verteilt. Die beiden Kanäle des NOT-HALT-Tasters werden direkt auf die sichere Eingangsbaugruppe gelegt.
+
+
+Für die Vernetzung der CPU und der ET 200 kommt ein SCALANCE 8-Port Switch (nicht in der Darstellung vorhanden) zum Einsatz. Dieser ist durch den TMO V1 Standard vorgeschrieben und bietet den Vorteil, den Aufbau sehr einfach mit zusätzlichen PROFINET-Teilnehmern zu erweitern. Zudem kann ein freier Port zum Anschluss des Programmier-Laptops genutzt werden.
 
 % Zur softwaretechnischen Projektierung einer SPS sieht der TMO V1 Standard die Verwendung des Simatic Managers vor. Die Auswahl an Steuerungen beschränkt sich auf die Serien S7-300 und S7-400. Unter Einbezug des verhältnismäßig geringen Umfangs der Anlage und Berücksichtigung der Tatsache, dass eine F-CPU benötigt wird fällt die Wahl auf eine S7-317F
 

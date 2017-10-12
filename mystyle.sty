@@ -138,6 +138,9 @@ XML
 	\newcommand{\lft}{\raggedright\arraybackslash} % Tabellenabschnitt linksbündig
 	\newcommand{\cntr}{\centering\arraybackslash} % Tabellenabschnitt zentriert
 	\newcommand{\rght}{\raggedleft\arraybackslash} % Tabellenabschnitt rechtsbündig
+% make all tabularx use footnotesize
+\let\oldtabularx\tabularx
+\renewcommand{\tabularx}{\footnotesize\oldtabularx}
 % \usepackage{ltxtable}		%% longtable mit tabularx-Formatierung aus externer Datei einbinden
 
 %% Links in PDF document
