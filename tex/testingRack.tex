@@ -20,18 +20,60 @@ Damit die funktionalen Anforderungen abgenommen werden können, bedarf es einer 
 
 Als Grundlage für die Hardware-Projektierung dient eine Bauteil-Liste, die Bestandteil der Standard-Dokumentensammlung ist. Diese Liste liegt in Form einer sehr umfangreichen Excel-Arbeitsmappe vor. Darin enthalten ist eine Vielzahl an Bauteilen aus den Domänen Elektrotechnik, Steuerungstechnik, Mechatronik und Mechanik, auf die bei der Projektierung vorzugsweise zurückgegriffen werden soll. Abweichungen von der Liste dürfen nur in Absprache mit dem verantwortlichen BMW-Projektleiter stattfinden.
 
-Ungeachtet der Bauteil-Liste gehen folgende technischen Anforderungen ebenfalls in die Komponentenauswahl ein:
+% Ungeachtet der Bauteil-Liste gehen folgende technische Anforderungen ebenfalls in die Komponentenauswahl ein:
 
- \begin{enumerate}
-    \itemsep0.1em
-    \item geringe bis mittlere Anlagen-Komplexität
-    \item PROFINET-Fähigkeit
-    \item F-CPU
-    \item digitale Ein-/Ausgänge
-    \item sichere digitale Eingänge
- \end{enumerate}
+% \begin{enumerate}
+% \itemsep 0.05em
+%     \item geringe bis mittlere Anlagen-Komplexität
+%     \item PROFINET-Fähigkeit
+%     \item F-CPU
+%     \item digitale Ein-/Ausgänge
+%     \item sichere digitale Eingänge
+% \end{enumerate}
 
- Hinzu kommen nicht technische Anforderungen, die seitens der OSB gelten. Da es sich um ein Non-Profit-Projekt handelt und eine Wiederverwendbarkeit der Hardware für zukünftige Projekte nicht garantiert ist, sind die Hardware-Kosten so niedrig wie möglich zu halten. Das hat zur Folge, dass für den Testaufbau lediglich 
+ Bei dem Testaufbau werden die technischen Anforderungen, welche sich aus dem Umfang der Aufgabe ergeben, begleitet von nicht technischen Anforderungen, die seitens der OSB gelten. Da es sich um ein Non-Profit-Projekt handelt und eine Wiederverwendbarkeit der Hardware für zukünftige Projekte nicht garantiert ist, sind die Hardware-Kosten so niedrig wie möglich zu halten. Das hat zur Folge, dass für den Testaufbau lediglich gebrauchte Baugruppen verwendet werden. Tabelle~\ref{tab:testingrackParts} zeigt eine Auswahl an steuerungstechnischen Baugruppen, die der Realisierung des Testaufbaus dienen.
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \caption{Bauteilliste Testaufbau}
+    \label{tab:testingrackParts}
+    \begin{tabularx}{\textwidth}{L{1.5cm}XL{3.3cm}R{1.0cm}}
+        \hline
+        Gerät    & Bezeichnung                                        & Artikelnummer      & Anzahl \\
+        \hline
+        S7-300  & SIMATIC S7-300, Profilschiene L=480mm             & 6ES7390-1AE80-0AA0 & 1      \\
+        S7-300   & PS 307 Stromversorgung 5A                            & 6ES7307-1EA01-0AA0 & 1      \\
+        S7-300  & SIMATIC S7-300 CPU317F-2 PN/DP                     & 6ES7317-2FK14-0AB0 & 1      \\
+        S7-300  & IP-20 Switch 8P SCALANCE XF208                    &    6GK5208-0BA00-2AF2 & 1      \\  
+        ET 200SP & IM 155-6 PN ST inkl. Servermodul inkl. Busadapter   & 6ES7155-6AA00-0BN0 & 1      \\
+        ET 200SP & Base-Unit BU15-P16+A0+2D, BU-Typ A0                & 6ES7193-6BP00-0DA0 & 3      \\
+        ET 200SP & digitales Eingangsmodul, DI 8x DC 24V              & 6ES7131-6BF00-0BA0 & 1      \\
+        ET 200SP & digitales Ausgangsmodul, DQ 8x 24VDC/0,5A          & 6ES7132-6BF00-0BA0 & 1      \\
+        ET 200SP & sicheres digitales Eingangsmodul, F-DI 8x 24VDC HF & 6ES7136-6BA00-0CA0 & 1     \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+Zusätzlich zu den aufgelisteten Baugruppen werden Bauelemente aus der Elektrotechnik benötigt, um eine Verbindung der Baugruppen untereinander herzustellen. Dazu gehören:
+
+\begin{enumerate}
+    \itemsep 0.05em
+    \item Reihenklemmen
+    \item Reihenklemmen Abschlussplatten
+    \item Klemmleisten Endklemmen
+    \item Anschlussleitung mit Schutzkontakt-Stecker 3 x \einh{1.5}{\milli\metre\squared}
+    \item Aderleitung schwarz \einh{1.0}{\milli\metre\squared}
+    \item Aderleitung blau \einh{0.75}{\milli\metre\squared}
+    \item Netzwerkkabel mit RJ45 Stecker 
+    \item \einh{0.5}{\metre} Hutschiene \einh{35}{\milli\metre} x \einh{7.5}{\milli\metre}
+    \item \einh{2.5}{\metre} Verdrahtungskanal \einh{45}{\milli\metre} x \einh{45}{\milli\metre}
+    \item NOT-HALT Taster zweikanalig mit Meldeleuchte
+\end{enumerate}
+
+\bild{t}{width=0.8\textwidth}{testingRack}{Präsentationsaufbau: Prinzipdarstellung}
+
+Damit ein ganzheitlicher Präsentationsaufbau entsteht, werden alle Komponenten auf einem Testgestellt ähnlich dem Modell in Abbildung~\ref{fig:testingRack} montiert. Dafür wird ein simpler Aufbau, bestehend aus einem Aluminiumprofil-Rahmen, einer verzinkten Lochrasterplatte und den darauf montierten Verdrahtungskanälen und Hutschienen vorgesehen. 
 
 % Zur softwaretechnischen Projektierung einer SPS sieht der TMO V1 Standard die Verwendung des Simatic Managers vor. Die Auswahl an Steuerungen beschränkt sich auf die Serien S7-300 und S7-400. Unter Einbezug des verhältnismäßig geringen Umfangs der Anlage und Berücksichtigung der Tatsache, dass eine F-CPU benötigt wird fällt die Wahl auf eine S7-317F
 
