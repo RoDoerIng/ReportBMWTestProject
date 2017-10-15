@@ -6,5 +6,66 @@
 % in each subfile with the following line (placed somewhere at the beginning):
 % !TEX root =  ../document.tex
 
-\chapter{Anbindung der IPS-X Systeme}
+\chapter{Konzept zur Anbindung der IPS-X Systeme}
 \label{chap:interfaces}
+
+\section{IPS-L}
+\label{sec:ips_l}
+
+\subsection{Schnittstellenkontrakt}
+\label{subsec:ips_l_contract}
+
+Das IPS-L-Netz ist Bestandteil des übergeordneten IT-Netzes der Anlage. Es dient zum Austausch von Daten die die Logistik-Steuerung der Auftragsdaten betreffen. Dazu verwaltet das IPS-L-System Karossen und Anbauteile und stellt diese Informationen entsprechend der Anlage bereit. Dabei entspricht die Reihenfolge der Daten, die vom IPS-L-System an die Steuerung übermittelt werden, der Sequenz an Fahrzeugen, die in der Anlage bearbeitet werden. Somit können die automatischen Bearbeitungsprozesse in Abhängigkeit des vorliegenden Fahrzeuges angepasst werden.
+
+Im Schnittstellenkontrakt mit BMW wurde zu Projektbeginn festgelegt, dass es sich bei der Schlüsselnummer der Datensätze vom IPS-L-System um die Auftragsnummer handelt. Zudem wurden gemäß Abbildung~\ref{fig:ips_l_telegrams} folgende vier Telegramme für den Datenaustausch spezifiziert:
+
+\begin{description}
+    \item [Einzeldatensatz-Anforderung] Die SPS sendet ein Einzel-Anforderungstelegramm an das IPS-L-System und dieses antwortet mit einem einzelnen Datensatz
+    \item [Blockdatensatz-Anforderung] Die SPS sendet ein Block-Anforderungstelegramm an das IPS-L-System und dieses antwortet mit einem Block-Datensatz dessen Größe auf fünf Einzeldatensätze festgelegt wurde
+    \item [IPS-L Verbindungsüberwachung] Die SPS sendet einen Ping an das IPS-L-System und dieses antwortet mit einer Ping-Antwort
+    \item [SPS Verbindungsüberwachung] Das IPS-L-System sendet einen Ping an die SPS und diese antwortet mit einer Ping-Antwort
+\end{description}
+
+\bild{t}{width=0.8\textwidth}{ips_l_telegrams}{IPS-L Schnittstellenkontrakt}
+
+\subsection{Realisierungskonzept}
+\label{subsec:ips_l_concept}
+
+
+\section{IPS-T}
+\label{sec:ips_t}
+
+\subsection{Schnittstellenkontrakt}
+\label{subsec:ips_t_contract}
+
+ Es handelt sich dabei um das Technik-Netz. Mit diesem werden Daten unterscheidlicher Art ausgetauscht. Zu den wichtigsten Daten gehören die Störmeldungen, welche die SPS an das IPS-T-Netz übermittelt. Zusätzlich werden Daten zu Zählerständen, Füllständen und Taktzeiten ausgetauscht. Dabei agiert die SPS nicht nur als Sender sondern auch Empfänger. So können mittels IPS-T beispielsweise Sollwerte für den Prozess  vorgegeben, bit-getriggerte Events in der Anlage ausgelöst oder Schichtwechsel-Signale an die Steuerung gesendet werden. 
+
+
+Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspartner eines im TMO-V1 definierten Protokolls. Seitens der SPS ist dieses in Form eines STRUCT in den Sende- und Empfangs-DBs hinterlegt (siehe Abb.~\ref{fig:ips_t_struct}). Das Befüllen der STRUCTs in den DBs geschieht mittels BMW-eigener Funktionen und Funktionsbausteinen, die wiederum separate DBs als Datenbasis nutzen. Die Aufgabe des SPS-Entwicklers besteht darin die Datenbasis mit den relevanten Werten zu befüllen. Im vorliegenden Projekt ist der Austausch von insgesamt sechs Zählerständen vorgesehen, die die folgenden Daten enthalten sollen: 
+
+\begin{description}
+    \itemsep 0.05em
+    \item [IPS-T -> SPS] Sollwert Taktzeit (Einheit: \einh{1/10}{\second})
+    \item [IPS-T -> SPS] Schichtziel (Einheit: \einh{}{\cars})
+    \item [SPS -> IPS-T] Gesamtzahl Autos (Einheit: \einh{}{\cars})
+    \item [SPS -> IPS-T] Aktuelle Taktzeit (Einheit: \einh{1/10}{\second})
+    \item [SPS -> IPS-T] Gesamtzahl F20 (Einheit: \einh{}{\cars})
+    \item [SPS -> IPS-T] Gesamtzahl F45 (Einheit: \einh{}{\cars})
+\end{description}
+
+\bild{t}{width=0.8\textwidth}{ips_t_struct}{STRUCT: IPS-T Protokoll}
+
+\subsection{Realisierungskonzept}
+\label{subsec:ips_l_concept}
+
+\begin{enumerate}
+    \item GetBaseData via pointer
+    \item UDTJOBTYPE  GetJob from type management
+    \item Process UDTJOBTYPE
+\end{enumerate}
+
+
+\section{IPS-Q}
+\label{sec:ips_q}
+
+Das Qualitätsnetz IPS-Q hat im Rahmen des Testprojektes keines Relevanz und wird aus diesem Grund nicht konzeptioniert.
