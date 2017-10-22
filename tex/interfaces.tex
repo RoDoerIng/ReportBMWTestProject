@@ -6,7 +6,7 @@
 % in each subfile with the following line (placed somewhere at the beginning):
 % !TEX root =  ../document.tex
 
-\chapter{Konzept zur Anbindung der IPS-X Systeme}
+\chapter{Nutzung der IPS-X Systeme}
 \label{chap:interfaces}
 
 \section{IPS-L}
@@ -17,7 +17,7 @@
 
 Das IPS-L-Netz ist Bestandteil des übergeordneten IT-Netzes der Anlage. Es dient zum Austausch von Daten die die Logistik-Steuerung der Auftragsdaten betreffen. Dazu verwaltet das IPS-L-System Karossen und Anbauteile und stellt diese Informationen entsprechend der Anlage bereit. Dabei entspricht die Reihenfolge der Daten, die vom IPS-L-System an die Steuerung übermittelt werden, der Sequenz an Fahrzeugen, die in der Anlage bearbeitet werden. Somit können die automatischen Bearbeitungsprozesse in Abhängigkeit des vorliegenden Fahrzeuges angepasst werden.
 
-Im Schnittstellenkontrakt mit BMW wurde zu Projektbeginn festgelegt, dass es sich bei der Schlüsselnummer der Datensätze vom IPS-L-System um die Auftragsnummer handelt. Zudem wurden gemäß Abbildung~\ref{fig:ips_l_telegrams} folgende vier Telegramme für den Datenaustausch spezifiziert:
+Im Schnittstellenkontrakt mit BMW wurde zu Projektbeginn festgelegt, dass es sich bei der Schlüsselnummer der Datensätze vom IPS-L-System um die Ordernummer handelt. Zudem wurden gemäß Abbildung~\ref{fig:ips_l_telegrams} folgende vier Telegramme für den Datenaustausch spezifiziert:
 
 \begin{description}
     \item [Einzeldatensatz-Anforderung] Die SPS sendet ein Einzel-Anforderungstelegramm an das IPS-L-System und dieses antwortet mit einem einzelnen Datensatz
@@ -27,10 +27,64 @@ Im Schnittstellenkontrakt mit BMW wurde zu Projektbeginn festgelegt, dass es sic
 \end{description}
 
 \bild{t}{width=0.8\textwidth}{ips_l_telegrams}{IPS-L Schnittstellenkontrakt}
-
+% \newpage
 \subsection{Realisierungskonzept}
 \label{subsec:ips_l_concept}
 
+Die Daten aus dem IPS-L-System sollen in der Typverwaltung zu Anwendung kommen. Wie in Abschnitt~\ref{sec:project_content} beschrieben, soll anhand des in der Station befindlichen Fahrzeugtyps ein entsprechendes Bearbeitungsprofil ausgewählt werden. Zur Identifikation des Fahrezeugtypes wird dessen Entwicklungsserie (z.B. E-90, E-87) verwendet.
+
+
+Für die Typverwaltung ist ein eigener Funktionsbaustein (FB\abbrev{FB}{Funktionsbaustein}) \texttt{FB\_TYPE\_ADMIN} vorgesehen, der zyklisch im Hauptprogramm (OB1\abbrev{OB}{Organisationsbaustein}) der SPS aufgerufen werden soll. Dessen Logik ist konzeptionell in dem Sequenzdiagram in Abbildung~\ref{fig:ips_l_concept_sequence} dargestellt und soll auf Basis dieser Vorlage umgesetzt werden. Folgende Funktionalität ist dabei zu implementieren. 
+Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückträger (WT\abbrev{WT}{Werkstückträger}) in Bearbeitungsposition ist. Außerdem wird geprüft, ob die Bearbeitung nicht aktiv ist. Sind beide Bedingungen erfüllt, wird die Nummer des WTs von Förderelement \texttt{+TL002} aus dem Datenbaustein (DB\abbrev{DB}{Datenbaustein}) \texttt{DB\_WT\_NR} gelesen. Anhand dieser Nummer wird anschließend aus \texttt{DB\_WT\_DA} die auf dem WT befindliche Ordernummer ermittelt. Mithilfe dieser wird danach die zur Ordenummern gehörige Entwicklungsserie aus dem IPS-L DB \texttt{DB\_IPSL\_SEQ} gelesen. Der DB \texttt{DB\_TYPE\_ADMIN} enthält schließlich die Zuordnung der Bearbeitungsprofile zu den Entwicklungsserien. Das zugehörige Bearbeitungsprofil wird also ausgewählt und an die Roboterschnittstelle \texttt{DB\_ROB\_ITF} übergeben. Nach erfolgter Übergabe erhält der Roboter die Freigabe zur Bearbeitung, er meldet zurück, sobald die Bearbeitung aktiv ist. 
+
+\bild{t}{width=\textwidth}{ips_l_concept_sequence}{Sequenzdiagram: Verwendung der IPS-L-Daten zur Typverwaltung}
+
+
+
+% https://mermaidjs.github.io/mermaid-live-editor/#/edit/c2VxdWVuY2VEaWFncmFtCmxvb3AgamVkZW4gWnlrbHVzCmFsdCAgSXN0IEZhaHJ6ZXVnIGluIEJlYXJiZWl0dW5nc3Bvc2l0aW9uIFVORCBOSUNIVCBCZWFyYmVpdHVuZyBha3RpdgogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9XVF9OUjogV1QtTnIuIGFuIEbDtnJkZXJlbCAyIGxlc2VuCiAgICBEQl9XVF9OUiAtLT4-LUZCX1RZUEVfQURNSU46IFdULU5yLgogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9XVF9EQTogT3JkZXJudW1tZXIgbGVzZW4KICAgIERCX1dUX0RBLS0-Pi1GQl9UWVBFX0FETUlOOiBPcmRlcm51bW1lcgogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9JUFNMX1NFUTogRW50d2lja2x1bmdzc2VyaWUgbGVzZW4KICAgIERCX0lQU0xfU0VRLS0-Pi1GQl9UWVBFX0FETUlOOiBFbnR3aWNrbHVuZ3NzZXJpZQogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9UWVBFX0FETUlOOiBCZWFyYmVpdHVuZ3Nwcm9maWwgbGVzZW4KICAgIERCX1RZUEVfQURNSU4tLT4-LUZCX1RZUEVfQURNSU46IEJlYXJiZWl0dW5nc3Byb2ZpbAogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9ST0JfSVRGOiBCZWFyYmVpdHVuZ3Nwcm9maWwgYW4gUm9ib3RlciDDvGJlcmdlYmVuCiAgICBGQl9UWVBFX0FETUlOLT4-REJfUk9CX0lURjogRnJlaWdhYmUgQmVhcmJlaXR1bmcKREJfUk9CX0lURi0tPj4tRkJfVFlQRV9BRE1JTjogQmVhcmJlaXR1bmcgYWt0aXYKZWxzZQpOb3RlIHJpZ2h0IG9mIEZCX1RZUEVfQURNSU46IGtlaW5lIEludGVyYWt0aW9uCmVuZAplbmQ
+
+% % MERMAID SEQUENCE DIAGRAM text
+% ```mermaid
+% sequenceDiagram
+%     loop jeden Zyklus
+%         alt  Ist Fahrzeug in Bearbeitungsposition UND NICHT Bearbeitung aktiv
+%             FB_TYPE_ADMIN->>+DB_WT_NR: WT-Nr. an +TL002 lesen
+%             DB_WT_NR -->>-FB_TYPE_ADMIN: WT-Nr.
+%             FB_TYPE_ADMIN->>+DB_WT_DA: Ordernummer lesen
+%             DB_WT_DA-->>-FB_TYPE_ADMIN: Ordernummer
+%             FB_TYPE_ADMIN->>+DB_IPSL_SEQ: Entwicklungsserie lesen
+%             DB_IPSL_SEQ-->>-FB_TYPE_ADMIN: Entwicklungsserie
+%             FB_TYPE_ADMIN->>+DB_TYPE_ADMIN: Bearbeitungsprofil lesen
+%             DB_TYPE_ADMIN-->>-FB_TYPE_ADMIN: Bearbeitungsprofil
+%             FB_TYPE_ADMIN->>+DB_ROB_ITF: Bearbeitungsprofil an Roboter übergeben
+%             FB_TYPE_ADMIN->>DB_ROB_ITF: Freigabe Bearbeitung
+%             DB_ROB_ITF-->>-FB_TYPE_ADMIN: Bearbeitung aktiv
+%         else
+%             Note right of FB_TYPE_ADMIN: keine Interaktion
+%         end
+%     end
+% ```
+
+
+\subsection{Implementierung}
+\label{subsec:ips_l_implementation}
+
+Für die Implementierung der beschriebenen Logik werden neben dem FB \texttt{FB\_TYPE\_ADMIN}, der die Logik enthalten wird, zahlreiche Hilfsfunktionen (FCs\abbrev{FC}{Funktion}), der DB \texttt{DB\_TYPE\_ADMIN} sowie ein neuer Datentyp (UDT\abbrev{UDT}{Datentyp (User Defined Type)}) zum Darstellen des Bearbeitungsprofils benötigt.
+
+
+\begin{description}
+    \itemsep 0.05em
+    % \item \texttt{FC\_IPSL\_SET\_POINTER8}
+    \item [\texttt{UDT\_PROCESS\_PROFILE}] Repräsentation des Bearbeitungsprofils
+    \item [\texttt{FC\_GET\_WT\_NO}] Lesen der WT-Nummer
+    \item [\texttt{FC\_GET\_OR}] Lesen der Ordernummer
+    \item [\texttt{FC\_GET\_SERIES}] Lesen der Entwicklungsserie
+    \item [\texttt{FC\_GET\_PROCESS\_PROFILE}] Lesen des Bearbeitungsprofils
+    % \item [\texttt{FB\_PROCESS\_COORDINATION}]
+    \item [\texttt{DB\_TYPE\_ADMIN}] Datenablage für Typverwaltung
+    % \item UDTJOBTYPE  GetJob from type management
+    % \item Process UDTJOBTYPE
+\end{description}
 
 \section{IPS-T}
 \label{sec:ips_t}
@@ -56,13 +110,9 @@ Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspart
 \bild{t}{width=0.8\textwidth}{ips_t_struct}{STRUCT: IPS-T Protokoll}
 
 \subsection{Realisierungskonzept}
-\label{subsec:ips_l_concept}
+\label{subsec:ips_t_concept}
 
-\begin{enumerate}
-    \item GetBaseData via pointer
-    \item UDTJOBTYPE  GetJob from type management
-    \item Process UDTJOBTYPE
-\end{enumerate}
+
 
 
 \section{IPS-Q}
