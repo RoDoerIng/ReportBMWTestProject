@@ -1,0 +1,27 @@
+FUNCTION FC_GET_SERIES : INT
+    VAR_IN_OUT
+        orderNumber : ARRAY [0..7] OF CHAR;
+        series : ARRAY [0..3] OF CHAR;
+    END_VAR
+    
+    VAR_TEMP
+        ii : INT;       // loop counter   
+        ipslPointer : INT;  // pointer to current IPSL data set
+        blkMovResult : INT;
+    END_VAR
+       
+    ipslPointer := DB_IPSL_VERW.ZEIG_8;
+        
+    IF FC_DATA_EQUAL(   in1:=DB_IPSL_SEQU.SEQ[ipslPointer].Key, 
+                        in2:=orderNumber) 
+    THEN
+        // order number of current IPSL dataset is equal to requested orderNumber
+        blkMovResult := 
+            BLKMOV( SRCBLK := DB_IPSL_SEQU.SEQ[ipslPointer].SERIES,
+                    DSTBLK := series);
+        FC_GET_SERIES := 0;     // return success
+    ELSE
+        FC_GET_SERIES := -1;    // return error
+    END_IF;
+
+END_FUNCTION

@@ -27,6 +27,7 @@
 %% Vorspann
 \frontmatter
 \subfile{tex/titlepage}
+\setcounter{tocdepth}{1}
 \tableofcontents
 \listoffigures
 \printnomenclature%
@@ -34,16 +35,25 @@
 %% Hauptteil
 \mainmatter{}
 
+%% Introduction
 \subfile{tex/intro}
 %\subfile{tex/constructionProcess}
 
+%% Planning
 \chapter{Planung}
 \label{chap:planning}
 \subfile{tex/preparation}
 \subfile{tex/controlConcept}
 \subfile{tex/profinetList}
 \subfile{tex/naming}
+
+%% Testing Rack
 \subfile{tex/testingRack}
+
+%% Software
+\subfile{tex/software}
+
+%% IT-Interfaces
 \subfile{tex/interfaces}
 
 %% Quellen- Literaturverzeichnis
@@ -60,6 +70,11 @@
 %\nocitelpic{*}
 %\bibliographylpic{lpic}
 
+% \appendix
+% %\chapter{Ablaufplan}
+% \chapter{Steuerungskonzept}
+% \newpage
+% \includepdf[landscape=true,pages=-]{ext/controlConcept.pdf}
 
 
 \end{document}

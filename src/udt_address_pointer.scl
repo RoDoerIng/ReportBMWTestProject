@@ -1,0 +1,7 @@
+TYPE UDT_ADDR_POINTER
+    STRUCT // This is equivalent to a union in 'c' dword goes in and word / byte LSB / byte MSB come out
+    ByteAddrLSBPad : BYTE; // Not Used
+    ByteAddrMSB : BYTE; // Byte address most significant bits
+    WordAddr : WORD; // Byte address least significant bits
+    END_STRUCT;
+END_TYPE

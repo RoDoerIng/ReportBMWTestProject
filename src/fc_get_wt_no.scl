@@ -1,0 +1,11 @@
+FUNCTION FC_GET_WT_NO : INT
+    VAR_INPUT 
+        conveyorElement: INT;
+    END_VAR
+    
+    IF conveyorElement > 0 THEN
+        FC_GET_WT_NO := DB_WT_NR.EL[conveyorElement].WT_Nr;
+    ELSE
+        FC_GET_WT_NO := -1;
+    END_IF;
+END_FUNCTION

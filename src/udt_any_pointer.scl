@@ -1,0 +1,13 @@
+TYPE UDT_ANY_POINTER
+    STRUCT // Diassembled ANY pointer structure
+        S7Code : BYTE; // Code for S7 (fixed at 16#10)
+        DataType : BYTE; // Code for data type
+        Length : INT; // Repetition factor = Send/receive length
+        DBNumber : INT; // Data block Number
+        MemoryArea : BYTE; // Specified memory area = 0x84 = data block
+        ByteAddressMSB : BYTE; // Byte address most significant bits
+        ByteAddressLSB : WORD; // Byte address least significant bits
+    END_STRUCT;
+END_TYPE
+
+// see https://scoolr.org/doku.php?id=software_engineering:plc:siemens:any_pointer&s[]=any for detailed information about the any pointer

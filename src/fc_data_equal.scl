@@ -1,0 +1,71 @@
+FUNCTION FC_DATA_EQUAL : BOOL
+TITLE = 'Memory Compare'
+AUTHOR : Smiffy
+// SOURCE: https://support.industry.siemens.com/tf/WW/en/posts/compare-two-variables-of-udt-scl/106278?page=0&pageSize=10
+// PLEASE NOTE:
+// the types UDT_ANY_POINTER and UDT_ADDR_POINTER need to be present in the project for this function to work!!!
+
+VAR_INPUT
+in1 : ANY;
+in2 : ANY;
+END_VAR
+
+VAR_TEMP
+retVal : INT;                       // return value for BLKMOVE function
+in1End, in2End : DINT;              // End addresses for memory areas
+Temp1, Temp2 : BYTE;                // temporary data storage for byte-wise comparison
+
+pIn1 : ANY;                         // temporary storage for copy of in1
+pAnyIn1 AT pIn1 : UDT_ANY_POINTER;  // mask any pointer with UDT
+
+u1Addr : DINT;                      // address pointer for indexing memory area of in1
+u1 AT u1Addr : UDT_ADDR_POINTER;    // mask address pointer with UDT
+    
+pIn2 : ANY;                         // temporary storage for copy of in2
+pAnyIn2 AT pIn2 : UDT_ANY_POINTER;  // mask any pointer with UDT
+
+u2Addr : DINT;                      // address pointer for indexing memory area of in2
+u2 AT u2Addr : UDT_ADDR_POINTER;    // mask address pointer with UDT
+END_VAR
+
+pIn1 := in1;                                // make copy of ANY pointer
+pAnyIn1.DataType := 16#02;                  // set DataType to BYTE
+u1.ByteAddrMSB := pAnyIn1.ByteAddressMSB;   // write address infromation to 32 bit address pointer
+u1.WordAddr := pAnyIn1.ByteAddressLSB;      // write address infromation to 32 bit address pointer
+in1End := u1Addr + (pAnyIn1.Length * 8);    // calculate end address by using length (bytes) and a 3 bit left shift (*8)
+pAnyIn1.Length := 1;                        // needs to be 1 for the upcoming blkmove operations
+
+pIn2 := in2;                                // make copy of ANY pointer
+pAnyIn2.DataType := 16#02;                  // set DataType to BYTE
+u2.ByteAddrMSB := pAnyIn2.ByteAddressMSB;   // write address infromation to 32 bit address pointer
+u2.WordAddr := pAnyIn2.ByteAddressLSB;      // write address infromation to 32 bit address pointer
+in2End := u2Addr + (pAnyIn2.Length * 8);    // calculate end address by using length (bytes) and a 3 bit left shift (*8)
+pAnyIn2.Length := 1;                        // needs to be 1 for the upcoming blkmove operations   
+
+WHILE (u1addr < in1End) AND (u2addr < in2End) DO
+    retVal := BLKMOV(SRCBLK := pIn1, DSTBLK := Temp1);  // move byte of input 1 to temp location
+    IF retVal <> 0 THEN                                 // blkmove successful?
+        FC_DATA_EQUAL := FALSE;                         // blkmove failed -> data unequal
+        RETURN;                                         // stop processing and return
+    END_IF;
+    retVal := BLKMOV(SRCBLK := pIn2, DSTBLK := Temp2);  // repeat the steps for input 2
+    IF retVal <> 0 THEN
+        FC_DATA_EQUAL := FALSE;
+        RETURN;
+    END_IF;     
+    IF Temp1 <> Temp2 THEN                              // bytes unequal?
+        FC_DATA_EQUAL := FALSE;                         // yes, data unequal
+        RETURN;                                         // stop processing and return
+    END_IF;
+
+    u1addr := u1addr + 8;                       // count up address pointer 1
+    pAnyIn1.ByteAddressMSB := u1.ByteAddrMSB;   // write new address information back to ANY pointer
+    pAnyIn1.ByteAddressLSB := u1.WordAddr;      // write new address information back to ANY pointer
+    u2addr := u2addr + 8;                       // count up address pointer 2
+    pAnyIn2.ByteAddressMSB := u2.ByteAddrMSB;   // write new address information back to ANY pointer
+    pAnyIn2.ByteAddressLSB := u2.WordAddr;      // write new address information back to ANY pointer
+END_WHILE;
+
+FC_DATA_EQUAL := TRUE;                          // if this point is reached, data equals
+
+END_FUNCTION

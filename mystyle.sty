@@ -37,6 +37,12 @@
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
 \definecolor{terminal_gray}{rgb}{0.9,0.9,0.9}
 
+%% SCL specific colors
+\definecolor{scl_blue_keywords}{rgb}{0,0,1}
+\definecolor{scl_yellow_keywords}{rgb}{0.5,0.5,0}
+\definecolor{scl_petrol_comments}{rgb}{0,0.5,0.5}
+\definecolor{scl_pink_strings}{rgb}{1,0,1}
+
 %% Physical units
 \usepackage[binary-units = true]{siunitx}
 \DeclareSIUnit{\Bit}{bit}
@@ -46,6 +52,7 @@
 
 %% Lisitings
 \usepackage{listings}
+\renewcommand{\lstlistingname}{Quellcode}
 \makeatletter
 \lst@InstallKeywords k{attributes}{attributestyle}\slshape{attributestyle}{}ld
 \makeatother
@@ -56,6 +63,7 @@ csh,
 Java,
 XML
 }
+
 \lstdefinestyle{Terminal}{
 	backgroundcolor=\color{black},  %terminal_gray, darkgray
 	basicstyle=\ttfamily\color{terminal_gray}  %black, white
@@ -115,6 +123,93 @@ XML
 	%identifierstyle=\color{red}
 }
 
+
+\lstdefinelanguage{SCL}
+{
+sensitive=true
+}
+
+\lstdefinestyle{sclStyle}{
+	% float=tp,
+	% floatplacement=tbp,
+	language=SCL,
+	basicstyle=\scriptsize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	tabsize=2,
+	captionpos = t,
+	stringstyle=\color{scl_pink_strings},
+	commentstyle=\color{scl_petrol_comments},
+	classoffset=1,% starting a new class
+	morekeywords = {
+	CONFIGURATION,TASK,INTERVAL,
+	VAR_GLOBAL,END_VAR,VAR_INPUT,VAR_OUTPUT, VAR_IN_OUT,VAR_TEMP,
+	CONST,END_CONST,
+	AT,OF,VOID,
+	BOOL,INT,DINT,STRING,CHAR,
+	STRUCT,END_STRUCT,TYPE,END_TYPE,
+	FUNCTION,END_FUNCTION,
+	IF,THEN,ELSE,END_IF,ELSIF,
+	FOR,TO,BY,DO,END_FOR}, 
+	%alsoletter={=,+, -, *, :, <, >,(,),#},
+	keywordstyle=\color{scl_blue_keywords},
+	classoffset=2,% starting another class
+	morekeywords={
+	OR, AND,
+	:,=,:=,<,>,
+	},
+	keywordstyle=\color{scl_yellow_keywords},
+	classoffset=0, % restore to default class if more customisations...
+	moreattributes={TRUE,FALSE	}, % etc...
+	attributestyle = \color{scl_pink_strings}, % (for instance)
+	morestring=[b]{"},
+	morestring=[b]{'},
+	morecomment=[l]{//},
+	morecomment=[s]{(*}{*)},
+	frame=lines,
+	literate=%
+	% {+}{{{\color{scl_yellow_keywords}+}}}1
+	% {-}{{{\color{scl_yellow_keywords}-}}}1
+	% {*}{{{\color{scl_yellow_keywords}*}}}1
+	% {/}{{{\color{scl_yellow_keywords}/}}}1
+	% {=}{{{\color{scl_yellow_keywords}=}}}1
+	% {:=}{{{\color{scl_yellow_keywords}:=}}}1
+	% {0}{{{\color{scl_pink_strings}0}}}1
+	% {1}{{{\color{scl_pink_strings}1}}}1
+	% {2}{{{\color{scl_pink_strings}2}}}1
+	% {3}{{{\color{scl_pink_strings}3}}}1
+	% {4}{{{\color{scl_pink_strings}4}}}1
+	% {5}{{{\color{scl_pink_strings}5}}}1
+	% {6}{{{\color{scl_pink_strings}6}}}1
+	% {7}{{{\color{scl_pink_strings}7}}}1
+	% {8}{{{\color{scl_pink_strings}8}}}1
+	% {9}{{{\color{scl_pink_strings}9}}}1
+}
+	
+\lstdefinelanguage{AWL}
+{
+sensitive=true
+}
+
+\lstdefinestyle{awlStyle}{
+	language=AWL,
+	basicstyle=\scriptsize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=10pt,
+	tabsize=2,
+	stringstyle=\color{redstrings},
+	commentstyle=\color{greencomments},
+	morekeywords = {
+	LD,ST,AND,JMPCN,JMP,CAL,LDN,ANDN}, 
+	%alsoletter={=,+, -, *, :, <, >,(,),#},
+	keywordstyle=\color{bluekeywords},
+	morestring=[b]{"},
+	morecomment=[l]{//},
+	morecomment=[s]{(*}{*)},
+	frame=line
+}
 %%Drawing with LaTeX
 \usepackage{./sty/tikz-uml}
 
@@ -172,6 +267,7 @@ XML
 \usepackage[abs]{overpic}		% Elemente auf Bildern positionieren
 \usepackage{epstopdf}		% eps-Dateien als Bilder einbinden
 \usepackage{svg}			% include svg images
+\usepackage{pdfpages} 
 
 \usepackage[
 %justification=centering
@@ -193,6 +289,11 @@ XML
 % Überschrift
 \renewcommand{\nomname}{Abkürzungsverzeichnis}
 \makenomenclature
+
+%% Create index
+% \usepackage{makeidx}
+% \makeindex
+% makeindex document.nlo -s nomencl.ist -o document.nls
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%% NEW COMMANDS %%%%
@@ -221,5 +322,5 @@ XML
 \newcommand{\einh}[2]{\SI[detect-all, output-decimal-marker = {,}]{#1}{#2}}
 
 %% Source Code Paths
-\newcommand{\src}{src/research}
+\newcommand{\src}{src}
 \newcommand{\extsrc}{}

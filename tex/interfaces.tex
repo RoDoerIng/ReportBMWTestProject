@@ -34,14 +34,14 @@ Im Schnittstellenkontrakt mit BMW wurde zu Projektbeginn festgelegt, dass es sic
 Die Daten aus dem IPS-L-System sollen in der Typverwaltung zu Anwendung kommen. Wie in Abschnitt~\ref{sec:project_content} beschrieben, soll anhand des in der Station befindlichen Fahrzeugtyps ein entsprechendes Bearbeitungsprofil ausgewählt werden. Zur Identifikation des Fahrezeugtypes wird dessen Entwicklungsserie (z.B. E-90, E-87) verwendet.
 
 
-Für die Typverwaltung ist ein eigener Funktionsbaustein (FB\abbrev{FB}{Funktionsbaustein}) \texttt{FB\_TYPE\_ADMIN} vorgesehen, der zyklisch im Hauptprogramm (OB1\abbrev{OB}{Organisationsbaustein}) der SPS aufgerufen werden soll. Dessen Logik ist konzeptionell in dem Sequenzdiagram in Abbildung~\ref{fig:ips_l_concept_sequence} dargestellt und soll auf Basis dieser Vorlage umgesetzt werden. Folgende Funktionalität ist dabei zu implementieren. 
-Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückträger (WT\abbrev{WT}{Werkstückträger}) in Bearbeitungsposition ist. Außerdem wird geprüft, ob die Bearbeitung nicht aktiv ist. Sind beide Bedingungen erfüllt, wird die Nummer des WTs von Förderelement \texttt{+TL002} aus dem Datenbaustein (DB\abbrev{DB}{Datenbaustein}) \texttt{DB\_WT\_NR} gelesen. Anhand dieser Nummer wird anschließend aus \texttt{DB\_WT\_DA} die auf dem WT befindliche Ordernummer ermittelt. Mithilfe dieser wird danach die zur Ordenummern gehörige Entwicklungsserie aus dem IPS-L DB \texttt{DB\_IPSL\_SEQ} gelesen. Der DB \texttt{DB\_TYPE\_ADMIN} enthält schließlich die Zuordnung der Bearbeitungsprofile zu den Entwicklungsserien. Das zugehörige Bearbeitungsprofil wird also ausgewählt und an die Roboterschnittstelle \texttt{DB\_ROB\_ITF} übergeben. Nach erfolgter Übergabe erhält der Roboter die Freigabe zur Bearbeitung, er meldet zurück, sobald die Bearbeitung aktiv ist. 
+Für die Typverwaltung ist ein eigener Funktionsbaustein (FB\abbrev{FB}{Funktionsbaustein}) \texttt{FB\_TYPE\_ADMIN} vorgesehen, der zyklisch im Hauptprogramm (OB1\abbrev{OB}{Organisationsbaustein}) der SPS aufgerufen werden soll. Dessen Logik ist konzeptionell in dem Sequenzdiagramm in Abbildung~\ref{fig:ips_l_concept_sequence} dargestellt und soll auf Basis dieser Vorlage umgesetzt werden. Folgende Funktionalität ist dabei zu implementieren. 
+Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückträger (WT\abbrev{WT}{Werkstückträger}) in Bearbeitungsposition ist. Außerdem wird geprüft, ob die Bearbeitung nicht aktiv ist. Sind beide Bedingungen erfüllt, wird die Nummer des WTs von Förderelement \texttt{+TL002} aus dem Datenbaustein (DB\abbrev{DB}{Datenbaustein}) \texttt{DB\_WT\_NR} gelesen. Anhand dieser Nummer wird anschließend aus \texttt{DB\_WT\_DA} die auf dem WT befindliche Ordernummer ermittelt. Mithilfe dieser wird danach die zur Ordenummern gehörige Entwicklungsserie aus dem IPS-L DB \texttt{DB\_IPSL\_SEQU} gelesen. Der DB \texttt{DB\_TYPE\_ADMIN} enthält schließlich die Zuordnung der Bearbeitungsprofile zu den Entwicklungsserien. Das zugehörige Bearbeitungsprofil wird also ausgewählt und an die Roboterschnittstelle \texttt{DB\_ROB\_ITF} übergeben. Nach erfolgter Übergabe erhält der Roboter die Freigabe zur Bearbeitung, er meldet zurück, sobald die Bearbeitung aktiv ist. 
 
-\bild{t}{width=\textwidth}{ips_l_concept_sequence}{Sequenzdiagram: Verwendung der IPS-L-Daten zur Typverwaltung}
+\bild{t}{width=\textwidth}{ips_l_concept_sequence}{Sequenzdiagramm: Verwendung der IPS-L-Daten zur Typverwaltung}
 
 
 
-% https://mermaidjs.github.io/mermaid-live-editor/#/edit/c2VxdWVuY2VEaWFncmFtCmxvb3AgamVkZW4gWnlrbHVzCmFsdCAgSXN0IEZhaHJ6ZXVnIGluIEJlYXJiZWl0dW5nc3Bvc2l0aW9uIFVORCBOSUNIVCBCZWFyYmVpdHVuZyBha3RpdgogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9XVF9OUjogV1QtTnIuIGFuIEbDtnJkZXJlbCAyIGxlc2VuCiAgICBEQl9XVF9OUiAtLT4-LUZCX1RZUEVfQURNSU46IFdULU5yLgogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9XVF9EQTogT3JkZXJudW1tZXIgbGVzZW4KICAgIERCX1dUX0RBLS0-Pi1GQl9UWVBFX0FETUlOOiBPcmRlcm51bW1lcgogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9JUFNMX1NFUTogRW50d2lja2x1bmdzc2VyaWUgbGVzZW4KICAgIERCX0lQU0xfU0VRLS0-Pi1GQl9UWVBFX0FETUlOOiBFbnR3aWNrbHVuZ3NzZXJpZQogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9UWVBFX0FETUlOOiBCZWFyYmVpdHVuZ3Nwcm9maWwgbGVzZW4KICAgIERCX1RZUEVfQURNSU4tLT4-LUZCX1RZUEVfQURNSU46IEJlYXJiZWl0dW5nc3Byb2ZpbAogICAgRkJfVFlQRV9BRE1JTi0-PitEQl9ST0JfSVRGOiBCZWFyYmVpdHVuZ3Nwcm9maWwgYW4gUm9ib3RlciDDvGJlcmdlYmVuCiAgICBGQl9UWVBFX0FETUlOLT4-REJfUk9CX0lURjogRnJlaWdhYmUgQmVhcmJlaXR1bmcKREJfUk9CX0lURi0tPj4tRkJfVFlQRV9BRE1JTjogQmVhcmJlaXR1bmcgYWt0aXYKZWxzZQpOb3RlIHJpZ2h0IG9mIEZCX1RZUEVfQURNSU46IGtlaW5lIEludGVyYWt0aW9uCmVuZAplbmQ
+% https://mermaidjs.github.io/mermaid-live-editor/#/view/c2VxdWVuY2VEaWFncmFtCiAgICBsb29wIGplZGVuIFp5a2x1cwogICAgICAgIGFsdCAgSXN0IEZhaHJ6ZXVnIGluIEJlYXJiZWl0dW5nc3Bvc2l0aW9uIFVORCBOSUNIVCBCZWFyYmVpdHVuZyBha3RpdgogICAgICAgICAgICBGQl9UWVBFX0FETUlOLT4-K0RCX1dUX05SOiBXVC1Oci4gYW4gK1RMMDAyIGxlc2VuCiAgICAgICAgICAgIERCX1dUX05SIC0tPj4tRkJfVFlQRV9BRE1JTjogV1QtTnIuCiAgICAgICAgICAgIEZCX1RZUEVfQURNSU4tPj4rREJfV1RfREE6IE9yZGVybnVtbWVyIGxlc2VuCiAgICAgICAgICAgIERCX1dUX0RBLS0-Pi1GQl9UWVBFX0FETUlOOiBPcmRlcm51bW1lcgogICAgICAgICAgICBGQl9UWVBFX0FETUlOLT4-K0RCX0lQU0xfU0VROiBFbnR3aWNrbHVuZ3NzZXJpZSBsZXNlbgogICAgICAgICAgICBEQl9JUFNMX1NFUS0tPj4tRkJfVFlQRV9BRE1JTjogRW50d2lja2x1bmdzc2VyaWUKICAgICAgICAgICAgRkJfVFlQRV9BRE1JTi0-PitEQl9UWVBFX0FETUlOOiBCZWFyYmVpdHVuZ3Nwcm9maWwgbGVzZW4KICAgICAgICAgICAgREJfVFlQRV9BRE1JTi0tPj4tRkJfVFlQRV9BRE1JTjogQmVhcmJlaXR1bmdzcHJvZmlsCiAgICAgICAgICAgIEZCX1RZUEVfQURNSU4tPj4rREJfUk9CX0lURjogQmVhcmJlaXR1bmdzcHJvZmlsIGFuIFJvYm90ZXIgw7xiZXJnZWJlbgogICAgICAgICAgICBGQl9UWVBFX0FETUlOLT4-REJfUk9CX0lURjogRnJlaWdhYmUgQmVhcmJlaXR1bmcKICAgICAgICAgICAgREJfUk9CX0lURi0tPj4tRkJfVFlQRV9BRE1JTjogQmVhcmJlaXR1bmcgYWt0aXYKICAgICAgICBlbHNlCiAgICAgICAgICAgIE5vdGUgcmlnaHQgb2YgRkJfVFlQRV9BRE1JTjoga2VpbmUgSW50ZXJha3Rpb24KICAgICAgICBlbmQKICAgIGVuZA
 
 % % MERMAID SEQUENCE DIAGRAM text
 % ```mermaid
@@ -69,22 +69,52 @@ Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückt
 \subsection{Implementierung}
 \label{subsec:ips_l_implementation}
 
-Für die Implementierung der beschriebenen Logik werden neben dem FB \texttt{FB\_TYPE\_ADMIN}, der die Logik enthalten wird, zahlreiche Hilfsfunktionen (FCs\abbrev{FC}{Funktion}), der DB \texttt{DB\_TYPE\_ADMIN} sowie ein neuer Datentyp (UDT\abbrev{UDT}{Datentyp (User Defined Type)}) zum Darstellen des Bearbeitungsprofils benötigt.
+Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaustein \texttt{FB\_TYPE\_ADMIN}, der die Logik enthält, zahlreiche Hilfsfunktionen (FCs\abbrev{FC}{Funktion}), der Datenbaustein \texttt{DB\_TYPE\_ADMIN} sowie ein neuer Datentyp (UDT\abbrev{UDT}{Datentyp (User Defined Type)}) zum Darstellen des Bearbeitungsprofils benötigt. Folgende Auflistung beinhaltet die nötigen Objekte und beschreibt deren Zweck in Anlehnung an Abbildung~\ref{fig:ips_l_concept_sequence}. Zudem enthält die Auflistung die Implementierung der Obejekte in der Sprache \emph{SCL}. Alle anderen im Sequenzdiagramm aufgeführten Datenbausteine, welche nicht beschrieben sind, sind bereits in der STEP7-Projektvorlage vorhanden und können ohne Modifikation verwendet werden. 
+
+
+% \begin{description}
+%     \itemsep 0.05em
+%     % \item \texttt{FC\_IPSL\_SET\_POINTER8}
+%     \item [\texttt{UDT\_PROCESS\_PROFILE}:] Repräsentation des Bearbeitungsprofils
+%     \item [\texttt{FC\_GET\_WT\_NO():INT}:] Lesen der WT-Nummer
+%     \item [\texttt{FC\_GET\_OR(wtNumber:INT):CHAR[8]}:] Lesen der Ordernummer
+%     \item [\texttt{FC\_GET\_SERIES(orderNumber:CHAR[8]):CHAR[4]}:] Lesen der Entwicklungsserie
+%     \item [\texttt{FC\_GET\_PROCESS\_PROFILE(series:CHAR[4]:UDT\_PROCESS\_PROFILE}:] Lesen des Bearbeitungsprofils
+%     \item [\texttt{DB\_TYPE\_ADMIN}:] Datenablage für Typverwaltung
+%     \item [\texttt{FB\_TYPE\_ADMIN}:] Steuerung der Typverwaltung
+% \end{description}
 
 
 \begin{description}
     \itemsep 0.05em
     % \item \texttt{FC\_IPSL\_SET\_POINTER8}
-    \item [\texttt{UDT\_PROCESS\_PROFILE}] Repräsentation des Bearbeitungsprofils
-    \item [\texttt{FC\_GET\_WT\_NO}] Lesen der WT-Nummer
-    \item [\texttt{FC\_GET\_OR}] Lesen der Ordernummer
-    \item [\texttt{FC\_GET\_SERIES}] Lesen der Entwicklungsserie
-    \item [\texttt{FC\_GET\_PROCESS\_PROFILE}] Lesen des Bearbeitungsprofils
-    % \item [\texttt{FB\_PROCESS\_COORDINATION}]
-    \item [\texttt{DB\_TYPE\_ADMIN}] Datenablage für Typverwaltung
-    % \item UDTJOBTYPE  GetJob from type management
-    % \item Process UDTJOBTYPE
+    \item [\texttt{UDT\_PROCESS\_PROFILE}] ist ein benutzerdefinierter Datentyp, der als Repräsentation für ein Bearbeitungsprofil dient. Die Entwicklungsserie wird einem Feld von vier Elementen des Typs \texttt{CHAR\abbrev{CHAR}{Character (Zeichen)}} dargestellt. Das entspricht exakt der Repräsentation, wie sie im Datenbaustein \texttt{DB\_IPSL\_SEQU} verwendet wird. Daneben enthält der Datentyp für jeden anzusteuernden Zylinder jeweils eine boolesche. Weißt eine \texttt{useCylX}-Variable den Wert \texttt{TRUE} auf, wird der zugehörige Zylinder bei der Bearbeitung des Fahrzeugs angesteuert.\leer
+    % 
+    \lstinputlisting[style=sclStyle,label=lst:udt_process_profile]{\src/udt_process_profile.scl}
+    %
+    \item [\texttt{DB\_TYPE\_ADMIN}:] ist ein Datenbaustein, der die verschiedenen Bearbeitungsprofile als ein Feld mit zehn Elementen vom Typ \texttt{UDT\_PROCESS\_PROFILE} enthält. Die enthaltenen Daten werden über das HMI eingepflegt und geändert.\leer
+    % 
+    \lstinputlisting[style=sclStyle,label=lst:db_type_admin]{\src/db_type_admin.scl}
+    %
+    \item [\texttt{FC\_GET\_WT\_NO(conveyorElement:INT):INT}] liest die WT-Nummer aus \texttt{DB\_WT\_NR} an einem durch \texttt{conveyorElement} spezifizierten Förderelement und gibt sie als Ganzzahl zurück. \abbrev{INT}{Integer (vorzeichenbehaftete Ganzzahl)} Für \texttt{conveyorElement < 0} wird \texttt{-1} zurückgegeben, um damit einen Fehler zu signalisieren.\leer
+    % 
+    \lstinputlisting[style=sclStyle,label=lst:fc_get_wt_no]{\src/fc_get_wt_no.scl}
+    % 
+    \item [\texttt{FC\_GET\_OR(wtNumber:INT, orderNumber:CHAR[8]):VOID}] liest die Ordernummer aus dem Datenbaustein \texttt{DB\_WT\_DA} von einem durch \texttt{wtNumber} spezifizierten Werkstückträger und gibt diese über den In/Out-Parameter \texttt{orderNumber} als ein Feld von acht Elementen des Typs \texttt{CHAR} zurück. Die Funktion selbst ist vom Typ \texttt{VOID}. Die Einschränkungen für Rückgabewerte seitens des SIMATIC Managers erlauben keine Arrays. Das Format für die Ordernummer entspricht dem, welches im DB \texttt{DB\_IPSL\_SEQU} verwendet wird und erleichtert damit die weitere Verwendung.\leer
+    %
+    \lstinputlisting[style=sclStyle,label=lst:fc_get_or]{\src/fc_get_or.scl}
+    %
+    \item [\texttt{FC\_GET\_SERIES(orderNumber:CHAR[8], series:CHAR[4]):VOID}] liest unter Angabe der Ordernummer als Parameter \texttt{orderNumber} die Entwicklungsserie aus dem Datenbaustein \texttt{DB\_IPSL\_SEQU} und gibt diese als In/Out-Parameter \texttt{series} als Feld von vier Elementen des Typs \texttt{CHAR} zurück.\par    
+    Beim Lesen der IPS-L Daten bedient sich die Funktion des im Datenbaustein \texttt{DB\_IPSL\_VERW} vorhandenen \emph{Zeiger 8}. Dieser ist vom TMO V1 Standard für den einfachen Zugriff auf das IPS-L Sequenzregister definiert und zeigt auf den Datensatz des aktuellen Fahrzeuges. Der Zeigerwert wird von einer separaten Funktion verwaltet. Bevor die Entwicklungsserie aus den IPSL-Daten gelesen wird prüft die Funktion, ob die angeforderte Ordernummer derjenigen entspricht, welche durch den \emph{Zeiger 8} referenziert wird. Ist dies nicht der Fall gibt die Funktion einen Fehler zurück.\leer
+    %
+    \lstinputlisting[style=sclStyle,label=lst:fc_get_series]{\src/fc_get_series.scl}
+    % 
+    \item [\texttt{FC\_GET\_PROCESS\_PROFILE(series:CHAR[4]:UDT\_PROCESS\_PROFILE}] liest unter Angabe der Entwicklungsserie als Parameter \texttt{series} das zugehörige Bearbeitungsprofil aus dem Datenbaustein \texttt{DB\_TYPE\_ADMIN} und gibt es als In/Out-Parameter \texttt{processProfile} des Typs \texttt{UDT\_PROCESS\_PROFILE} zurück.
+    % 
+    \lstinputlisting[style=sclStyle,label=lst:fc_get_process_profile]{\src/fc_get_process_profile.scl}
+    % \item [\texttt{FB\_TYPE\_ADMIN}:] implementiert die Logik zur Typverwaltung und ist damit für deren Steuerung verantworlich. Der Aufruf findet zyklisch im OB1 statt. 
 \end{description}
+
 
 \section{IPS-T}
 \label{sec:ips_t}
@@ -109,8 +139,8 @@ Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspart
 
 \bild{t}{width=0.8\textwidth}{ips_t_struct}{STRUCT: IPS-T Protokoll}
 
-\subsection{Realisierungskonzept}
-\label{subsec:ips_t_concept}
+% \subsection{Realisierungskonzept}
+% \label{subsec:ips_t_concept}
 
 
 

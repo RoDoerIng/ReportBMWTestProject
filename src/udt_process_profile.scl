@@ -1,0 +1,7 @@
+TYPE UDT_PROCESS_PROFILE
+    STRUCT
+        series : ARRAY [0..3] OF CHAR;  // ID of development series
+        useCyl1 : BOOL;                 // use cylinder 1? 
+        useCyl2 : BOOL;                 // use cylinder 2?
+    END_STRUCT
+END_TYPE

@@ -1,0 +1,29 @@
+FUNCTION FC_GET_OR : VOID
+    VAR_INPUT
+        wtNumber : INT;
+    END_VAR
+    
+    VAR_IN_OUT
+        orderNumber : ARRAY [0..7] OF CHAR;
+        orMask AT orderNumber : ARRAY [0..7] OF BYTE;
+    END_VAR
+    
+    VAR_TEMP
+        ii : INT;       // loop counter    
+        byteIndex: INT;
+    END_VAR
+    
+    CONST
+        WT_DATA_LENGTH := 2 + 78;   // bytes
+        WT_DATA_OFFSET := 80;       // bytes
+        OR_OFFSET := 2;  // offset of OR in UDT_WT_Daten
+    END_CONST
+    
+    byteIndex :=    WT_DATA_OFFSET 
+                +   (wtNumber * WT_DATA_LENGTH)
+                +   OR_OFFSET;
+                    
+    FOR ii := 0 TO 7 BY 1 DO
+        orMask[ii] := DB_WT_DA.DB[byteIndex + ii];
+    END_FOR;
+END_FUNCTION

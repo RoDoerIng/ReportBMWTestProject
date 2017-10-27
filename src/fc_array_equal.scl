@@ -1,0 +1,16 @@
+FUNCTION FC_ARRAY_EQUAL : BOOL
+
+VAR_INPUT
+     array1 : Type
+END_VAR
+
+VAR_TEMP
+    // temporäre Variablen
+
+END_VAR
+
+    // Anweisungsteil
+    ;
+    FC_ARRAY_EQUAL := 100;
+END_FUNCTION
+
