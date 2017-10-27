@@ -88,7 +88,7 @@ Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaust
 \begin{description}
     \itemsep 0.05em
     % \item \texttt{FC\_IPSL\_SET\_POINTER8}
-    \item [\texttt{UDT\_PROCESS\_PROFILE}] ist ein benutzerdefinierter Datentyp, der als Repräsentation für ein Bearbeitungsprofil dient. Die Entwicklungsserie wird einem Feld von vier Elementen des Typs \texttt{CHAR\abbrev{CHAR}{Character (Zeichen)}} dargestellt. Das entspricht exakt der Repräsentation, wie sie im Datenbaustein \texttt{DB\_IPSL\_SEQU} verwendet wird. Daneben enthält der Datentyp für jeden anzusteuernden Zylinder jeweils eine boolesche. Weißt eine \texttt{useCylX}-Variable den Wert \texttt{TRUE} auf, wird der zugehörige Zylinder bei der Bearbeitung des Fahrzeugs angesteuert.\leer
+    \item [\texttt{UDT\_PROCESS\_PROFILE}] ist ein benutzerdefinierter Datentyp, der als Repräsentation für ein Bearbeitungsprofil dient. Die Entwicklungsserie wird einem Feld von vier Elementen des Typs \texttt{CHAR\abbrev{CHAR}{Character (Zeichen) \einh{8}{\Bit}}} dargestellt. Das entspricht exakt der Repräsentation, wie sie im Datenbaustein \texttt{DB\_IPSL\_SEQU} verwendet wird. Daneben enthält der Datentyp für jeden anzusteuernden Zylinder jeweils eine boolesche. Weißt eine \texttt{useCylX}-Variable den Wert \texttt{TRUE} auf, wird der zugehörige Zylinder bei der Bearbeitung des Fahrzeugs angesteuert.\leer
     % 
     \lstinputlisting[style=sclStyle,label=lst:udt_process_profile]{\src/udt_process_profile.scl}
     %
@@ -96,7 +96,7 @@ Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaust
     % 
     \lstinputlisting[style=sclStyle,label=lst:db_type_admin]{\src/db_type_admin.scl}
     %
-    \item [\texttt{FC\_GET\_WT\_NO(conveyorElement:INT):INT}] liest die WT-Nummer aus \texttt{DB\_WT\_NR} an einem durch \texttt{conveyorElement} spezifizierten Förderelement und gibt sie als Ganzzahl zurück. \abbrev{INT}{Integer (vorzeichenbehaftete Ganzzahl)} Für \texttt{conveyorElement < 0} wird \texttt{-1} zurückgegeben, um damit einen Fehler zu signalisieren.\leer
+    \item [\texttt{FC\_GET\_WT\_NO(conveyorElement:INT):INT}] liest die WT-Nummer aus \texttt{DB\_WT\_NR} an einem durch \texttt{conveyorElement} spezifizierten Förderelement und gibt sie als Ganzzahl zurück. \abbrev{INT}{Integer (vorzeichenbehaftete Ganzzahl) \einh{16}{\Bit}} Für \texttt{conveyorElement < 0} wird \texttt{-1} zurückgegeben, um damit einen Fehler zu signalisieren.\leer
     % 
     \lstinputlisting[style=sclStyle,label=lst:fc_get_wt_no]{\src/fc_get_wt_no.scl}
     % 
@@ -125,17 +125,26 @@ Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaust
  Es handelt sich dabei um das Technik-Netz. Mit diesem werden Daten unterscheidlicher Art ausgetauscht. Zu den wichtigsten Daten gehören die Störmeldungen, welche die SPS an das IPS-T-Netz übermittelt. Zusätzlich werden Daten zu Zählerständen, Füllständen und Taktzeiten ausgetauscht. Dabei agiert die SPS nicht nur als Sender sondern auch Empfänger. So können mittels IPS-T beispielsweise Sollwerte für den Prozess  vorgegeben, bit-getriggerte Events in der Anlage ausgelöst oder Schichtwechsel-Signale an die Steuerung gesendet werden. 
 
 
-Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspartner eines im TMO-V1 definierten Protokolls. Seitens der SPS ist dieses in Form eines STRUCT in den Sende- und Empfangs-DBs hinterlegt (siehe Abb.~\ref{fig:ips_t_struct}). Das Befüllen der STRUCTs in den DBs geschieht mittels BMW-eigener Funktionen und Funktionsbausteinen, die wiederum separate DBs als Datenbasis nutzen. Die Aufgabe des SPS-Entwicklers besteht darin die Datenbasis mit den relevanten Werten zu befüllen. Im vorliegenden Projekt ist der Austausch von insgesamt sechs Zählerständen vorgesehen, die die folgenden Daten enthalten sollen: 
+Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspartner eines im TMO-V1 definierten Protokolls. Seitens der SPS ist dieses in Form eines STRUCT in den Sende- und Empfangs-DBs hinterlegt (siehe Abb.~\ref{fig:ips_t_struct}). Das Befüllen der STRUCTs in den DBs geschieht mittels BMW-eigener Funktionen und Funktionsbausteinen, die wiederum separate DBs als Datenbasis nutzen. Die Aufgabe des SPS-Entwicklers besteht darin die Datenbasis mit den relevanten Werten zu befüllen. Im vorliegenden Projekt ist der Austausch von insgesamt sechs Zählerständen vorgesehen, die die folgenden Daten enthalten sollen:
 
-\begin{description}
-    \itemsep 0.05em
-    \item [IPS-T -> SPS] Sollwert Taktzeit (Einheit: \einh{1/10}{\second})
-    \item [IPS-T -> SPS] Schichtziel (Einheit: \einh{}{\cars})
-    \item [SPS -> IPS-T] Gesamtzahl Autos (Einheit: \einh{}{\cars})
-    \item [SPS -> IPS-T] Aktuelle Taktzeit (Einheit: \einh{1/10}{\second})
-    \item [SPS -> IPS-T] Gesamtzahl F20 (Einheit: \einh{}{\cars})
-    \item [SPS -> IPS-T] Gesamtzahl F45 (Einheit: \einh{}{\cars})
-\end{description}
+\begin{tabbing}
+    \textbf{IPS-T}    \= \textbf{--> SPS}   \hspace{.5cm}\= Sollwert Taktzeit (Einheit: \einh{1/10}{\second}) \\
+    \textbf{IPS-T}    \> \textbf{--> SPS}   \> Schichtziel (Einheit: \einh{}{\cars}) \\
+    \textbf{SPS  }    \> \textbf{--> IPS-T} \> Gesamtzahl Autos (Einheit: \einh{}{\cars})\\
+    \textbf{SPS  }    \> \textbf{--> IPS-T} \> Aktuelle Taktzeit (Einheit: \einh{1/10}{\second})\\
+    \textbf{SPS  }    \> \textbf{--> IPS-T} \> Gesamtzahl F20 (Einheit: \einh{}{\cars})\\
+    \textbf{SPS  }    \> \textbf{--> IPS-T} \> Gesamtzahl F45 (Einheit: \einh{}{\cars})
+\end{tabbing}
+
+% \begin{description}
+%     \itemsep 0.05em
+%     \item [IPS-T -> SPS] Sollwert Taktzeit (Einheit: \einh{1/10}{\second})
+%     \item [IPS-T -> SPS] Schichtziel (Einheit: \einh{}{\cars})
+%     \item [SPS -> IPS-T] Gesamtzahl Autos (Einheit: \einh{}{\cars})
+%     \item [SPS -> IPS-T] Aktuelle Taktzeit (Einheit: \einh{1/10}{\second})
+%     \item [SPS -> IPS-T] Gesamtzahl F20 (Einheit: \einh{}{\cars})
+%     \item [SPS -> IPS-T] Gesamtzahl F45 (Einheit: \einh{}{\cars})
+% \end{description}
 
 \bild{t}{width=0.8\textwidth}{ips_t_struct}{STRUCT: IPS-T Protokoll}
 
