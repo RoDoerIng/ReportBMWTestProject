@@ -200,18 +200,20 @@ sensitive=true
 	basicstyle=\scriptsize\ttfamily,
 	numbers=left,
 	numberstyle=\tiny,
-	numbersep=10pt,
+	numbersep=5pt,
 	tabsize=2,
 	stringstyle=\color{redstrings},
 	commentstyle=\color{greencomments},
 	morekeywords = {
-	LD,ST,AND,JMPCN,JMP,CAL,LDN,ANDN}, 
+	LD,ST,AND,JMPCN,JMP,CAL,LDN,ANDN,
+	L,T}, 
 	%alsoletter={=,+, -, *, :, <, >,(,),#},
 	keywordstyle=\color{bluekeywords},
 	morestring=[b]{"},
+	morestring=[b]{'},
 	morecomment=[l]{//},
 	morecomment=[s]{(*}{*)},
-	frame=line
+	frame=lines
 }
 %%Drawing with LaTeX
 \usepackage{./sty/tikz-uml}

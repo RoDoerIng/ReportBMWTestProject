@@ -15,7 +15,7 @@
 Wie für die meisten Entwicklungsschritte im Anlagenentstehungsprozess enthält der TMO V1 Standard auch für die Anlagensoftware eine Projektvorlage. Diese besteht im Wesentlichen aus zwei Teilen, einem Step7-Projekt, welches das Programm für die SPS enthält und einem TIA V13 SP1 Projekt für die Visualisierung. %In beiden Fällen handelt es sich um konsistente, kompilierbare und lauffähige Projekte. 
 Die Projekte sind so aufgebaut, dass sie nahezu alle im Standard vorhandenen Bausteine und Konzepte implementieren. Die Nutzung dieser Vorlagen ist dabei nicht optional sondern obligatorisch. Wie in anderen Domänen des Standards ist auch bei der Anlagensoftware das Ziel, eine einheitliche Basis für ein breites Feld von Maschinen zu schaffen, auch wenn diese von unterschiedlichen Herstellern entwickelt werden.\par
 
-Die Bearbeitung der Anlagensoftware orientiert sich am Leitfaden\citelothers{others_plc_sw} zur Entwicklung der S7-Software. Als Voraussetzung dienen der Ergebnisse der Planungsphase, sowie eine vorhandene Feinspezifikation. Folgende Vorgehensweise wird von BMW empfohlen:
+Die Bearbeitung der Anlagensoftware orientiert sich am Leitfaden~\citelothers{others_plc_sw} zur Entwicklung der S7-Software. Als Voraussetzung dienen der Ergebnisse der Planungsphase, sowie eine vorhandene Feinspezifikation. Folgende Vorgehensweise wird von BMW empfohlen:
 \begin{enumerate}
     \itemsep 0.05em
     \item Vorbereitung
@@ -38,17 +38,44 @@ In den folgenden Abschnitten werden exemplarisch die Punkte~\ref{item:prep:hw_co
 
 \section{Hardware-Konfiguration}
 \label{sec:hw_config}
-Basierend auf der in Abschnitt~\ref{sec:profinetList} beschriebenen PROFINET Liste wird die Hardware-Konfiguration vorgenommen. Zunächst wird die verwendete Steuerung eingefügt, benannt und mit der projektierten IP-Adresse versehen. Anschließend werden nach und nach alle Teilnehmer aus der PROFINET-Liste hinzugefügt, adressiert und die entsprechenden Ein-/Ausgangsbereiche zugeordnet. Danach wird das PROFINET Netzwerk konfiguriert. Das heißt, jedem Port, sofern er verschaltet werden soll, wird der Port zugeordnet, mit dem er verbunden ist. Dieses Vorgehen bietet erweiterte Diagnose-Möglichkeiten, wenn Teilnehmer am Netz ausfallen oder ausgetauscht werden. Für das Testprojekt entsteht die in Abbildung~\ref{fig:hw_config} dargestellte Hardware-Konfiguration. Die zugehörige PROFINET-Topologie ist in Abbildung~\ref{fig:profinet_topology} zu sehen.\par
+Basierend auf der in Abschnitt~\ref{sec:profinetList} beschriebenen PROFINET Liste wird die Hardware-Konfiguration vorgenommen. Zunächst wird die verwendete Steuerung eingefügt, benannt und mit der projektierten IP-Adresse versehen. Anschließend werden nach und nach alle Teilnehmer aus der PROFINET-Liste hinzugefügt, adressiert und die entsprechenden Ein-/Ausgangsbereiche zugeordnet. Danach wird die Topologie des Netzwerks konfiguriert. Das heißt, jedem Port, sofern er verschaltet werden soll, wird der Port zugeordnet, mit dem er verbunden ist. Dieses Vorgehen bietet erweiterte Diagnose-Möglichkeiten in der CPU, wenn Teilnehmer am Netz ausfallen oder ausgetauscht werden. Für das Testprojekt entsteht die in Abbildung~\ref{fig:hw_config} dargestellte Hardware-Konfiguration. Die zugehörige PROFINET-Topologie ist in Abbildung~\ref{fig:profinet_topology} zu sehen.\par
+Da die verwendete Steuerung mit ihrer integrierten Safety-CPU sicherheitstechnische Peripherie auswerten und steuern können soll, ist es notwendig, die entsprechenden F-Parameter in der Hardware-Konfiguration einzustellen. Eine Beschreibung aller relevanten Daten sowie die Vorgehensweise beim Anpassen sind Teil der TMO V1 Dokumentation~\citelothers{others_safety}.
 
 \bild{tb}{width=0.85\textwidth}{hw_config}{Hardware-Konfiguration}
 
 \bild{tb}{width=1\textwidth}{profinet_topology}{PROFINET Topologie}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Safety-Software}
 \label{sec:safety_software}
 
-Als Grundlage für die Safety-Software dient die Safety-Matrix (Vgl. Abb.~\ref{fig:safety_matrix}). In dieser steht beschrieben, welches Nothalt-Organ welchen Lastkreis und welche Funktionsgruppe betrifft. Für den vergleichsweise geringen Umfang der Anlage im Testprojekt ist die Matrix recht simpel. Hier wirkt jedes Nothalt-Organ auf jede Funktionsgruppe. Bei komplexeren, flächenmäßig weitläufigen Anlagen lautet die Vorgabe, dass Nothalt-Organe jeweils nur Funktionsgruppen betreffen, die sich in unmittelbarer Nähe befinden. Speziell bei Nothalt-Tastern gilt, dass sich betroffene Funktionsgruppen im Sichtbereich der betätigenden Person befinden müssen.
+Als Grundlage für die Safety-Software dient die Safety-Matrix (Vgl. Abb.~\ref{fig:safety_matrix}). In dieser steht beschrieben, welches Nothalt-Organ welchen Lastkreis und welche Funktionsgruppe betrifft. Für den vergleichsweise geringen Umfang der Anlage im Testprojekt ist die Matrix recht simpel. Hier wirkt jedes Nothalt-Organ auf jede Funktionsgruppe. Bei komplexeren, flächenmäßig weitläufigen Anlagen lautet die Vorgabe, dass Nothalt-Organe jeweils nur Funktionsgruppen betreffen, die sich in unmittelbarer Nähe befinden. Speziell bei Nothalt-Tastern gilt, dass nur Funktionsgruppen betroffen sind, die sich im Sichtbereich der betätigenden Person befinden.
 
-\bild{tb}{width=0.4\textwidth}{safety_matrix}{Safety-Matrix}
+Zur Realisierung der Sicherheitsfunktionen im Testprojekt werden Bausteine aus der Projektvorlage verwendet. Das darin enthaltene Safety-Programm umfasst wesentlich mehr Peripherie als für das Testprojekt vorgesehen. Abbildung~\ref{fig:safety_estop_compare} verdeutlicht den Unterscheid anhand der Not-HALT-Behandlung. Anstelle der vier Not-HALT-Organe aus der Projektvorlage werden hier lediglich zwei verarbeitet. Jedem Not-HALT Taster ist ein Netzwerk zugeordnet, in dem die zugehörigen sicheren digitalen Eingänge verschaltet sind. In weiteren Bausteinen wird die entsprechende Peripherie für Schutz-Türen, Lichtgitter, Roboter, Lastkreise etc. verarbeitet.  
+
+\bild{t}{width=0.4\textwidth}{safety_matrix}{Safety-Matrix}
+
+\bild{t}{width=0.85\textwidth}{safety_estop_compare}{Vergleich Not-HALT Behandlung: Projektvorlage (li.), Testprojekt (re.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Anbindung IT-Systemen}
+\bild{htbp}{width=0.65\textwidth}{it_systems_connection}{SPS-seitige Konfiguration der TCP-Verbindungen}
+
+Für die Anbindung der IT-Systeme (IPS-X System) ist die Konfiguration mehrerer Bausteine notwendig. Hardware-seitig werden die IT-Systeme über die Onboard-Schnittstelle der CPU angebunden. Software-seitig wird in einem Funktionsbaustein (FB61-\texttt{FB\_IE\_VERB}) jede einzelne Verbindung separate eingerichtet (s. Abb.~\ref{fig:it_systems_connection}).\par
+Im ersten Netzwerk wird die CPU gewählt, indem der entsprechende Zahlenwert in eine temporäre Variable geladen wird. Diese wird in den nachfolgenden Netzwerken für jede einzelne Verbindung wiederverwendet. Im Rahmen des Testprojektes sind drei Verbindungen herzustellen, bei denen die SPS jeweils der passive Verbindungspartner ist. Es handelt sich allen drei Fällen um RFC1006-Verbindungen\footnote{RFC 1006 mit dem Titel ``ISO Transport Service on top of the TCP'' (ISO Transportdienst über TCP) ist eine Protokoll-Erweiterung für das TCP-Protokoll. Hierbei werden zusätzlich zu den TCP Daten weitere Informationen zwischen den Teilnehmern übertragen, um bestimmte Dienste für den Anwender erbringen zu können (ISO-Dienste als Erweiterung zu TCP)~\citelonl{onl_rfc1006}}\abbrev{RFC}{Request for Comments}.
+Damit eine solche Verbindung erfolgreich aufgebaut werden kann, sind die IP-Adressen der Partner und deren TSAP\abbrev{TSAP}{Transport Service Access Point} notwendig. Als TSAP der SPS dient der Anlagenname aus dem Anlagenkennzeichen (siehe Abschnitt~\ref{sec:naming}). Der TSAP des jeweiligen IPS-X System ist \emph{hart} in den FB61 codiert und wird mit folgenden Lade- und Trasfer-Anweisungen in den Netzwerken 2\ldots4 in die statischen Daten des Bausteins geladen. Beispiel IPS-T-System:\leer
+
+
+\lstinputlisting[style=awlStyle,firstline=1,lastline=20]{\src/fb_ie_verb.awl}
+\pagebreak
+
+Schließlich wird mit dem Aufrauf eines Multiinstanz-Funktionsbausteins für jedes IPS-X System separat die Verbindung aufgebaut. Beispiel IPS-T-System:\leer
+
+\lstinputlisting[style=awlStyle,firstline=21,lastline=25]{\src/fb_ie_verb.awl}\leer
+
+
+Nach erfolgreicher Konfiguration ist die SPS in der Lage, Daten mit den IPS-X-Systemen auszutauschen. Welche Daten ausgetauscht werden sollen und wie die Kommunikation im Einzelnen vonstatten geht, wird in Kapitel~\ref{chap:interfaces} behandelt.
+

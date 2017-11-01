@@ -1,0 +1,25 @@
+      L     8
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id_len
+      L     'M'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[1]
+      L     'O'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[2]
+      L     'N'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[3]
+      L     'T'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[4] 
+      L     'I'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[5]
+      L     'P'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[6]
+      L     'S'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[7]
+      L     'T'
+      T     "DI_FB61".IPS_T_01.Connect_Data.rem_tsap_id[8]
+
+
+      // Verbindung auf die integrierte IE-Schnittstelle laden und aufbauen                      
+      //load and connect connection to the integrated interface 
+      CALL  #IPS_T_01                           // Funktion Verbindungsparameter laden      
+       connect:="DI_FB61".IPS_T_01.connect      // Verbindung aufbauen
+       CPU_Typ:=#cpu_typ
