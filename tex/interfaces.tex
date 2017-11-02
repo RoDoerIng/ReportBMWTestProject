@@ -31,11 +31,12 @@ Im Schnittstellenkontrakt mit BMW wurde zu Projektbeginn festgelegt, dass es sic
 \subsection{Realisierungskonzept}
 \label{subsec:ips_l_concept}
 
-Die Daten aus dem IPS-L-System sollen in der Typverwaltung zu Anwendung kommen. Wie in Abschnitt~\ref{sec:project_content} beschrieben, soll anhand des in der Station befindlichen Fahrzeugtyps ein entsprechendes Bearbeitungsprofil ausgewählt werden. Zur Identifikation des Fahrezeugtypes wird dessen Entwicklungsserie (z.B. E-90, E-87) verwendet.
+Die Daten aus dem IPS-L-System sollen in der Typverwaltung zur Anwendung kommen. Wie in Abschnitt~\ref{sec:project_content} beschrieben, soll anhand des in der Station befindlichen Fahrzeugtyps ein entsprechendes Bearbeitungsprofil ausgewählt werden. Zur Identifikation des Fahrezeugtyps wird dessen Entwicklungsserie (z.B. E-90, E-87) verwendet.
 
 
-Für die Typverwaltung ist ein eigener Funktionsbaustein (FB\abbrev{FB}{Funktionsbaustein}) \texttt{FB\_TYPE\_ADMIN} vorgesehen, der zyklisch im Hauptprogramm (OB1\abbrev{OB}{Organisationsbaustein}) der SPS aufgerufen werden soll. Dessen Logik ist konzeptionell in dem Sequenzdiagramm in Abbildung~\ref{fig:ips_l_concept_sequence} dargestellt und soll auf Basis dieser Vorlage umgesetzt werden. Folgende Funktionalität ist dabei zu implementieren. 
-Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückträger (WT\abbrev{WT}{Werkstückträger}) in Bearbeitungsposition ist. Außerdem wird geprüft, ob die Bearbeitung nicht aktiv ist. Sind beide Bedingungen erfüllt, wird die Nummer des WTs von Förderelement \texttt{+TL002} aus dem Datenbaustein (DB\abbrev{DB}{Datenbaustein}) \texttt{DB\_WT\_NR} gelesen. Anhand dieser Nummer wird anschließend aus \texttt{DB\_WT\_DA} die auf dem WT befindliche Ordernummer ermittelt. Mithilfe dieser wird danach die zur Ordenummern gehörige Entwicklungsserie aus dem IPS-L DB \texttt{DB\_IPSL\_SEQU} gelesen. Der DB \texttt{DB\_TYPE\_ADMIN} enthält schließlich die Zuordnung der Bearbeitungsprofile zu den Entwicklungsserien. Das zugehörige Bearbeitungsprofil wird also ausgewählt und an die Roboterschnittstelle \texttt{DB\_ROB\_ITF} übergeben. Nach erfolgter Übergabe erhält der Roboter die Freigabe zur Bearbeitung, er meldet zurück, sobald die Bearbeitung aktiv ist. 
+Für die Typverwaltung ist ein eigener Funktionsbaustein (FB\abbrev{FB}{Funktionsbaustein}) \texttt{FB\_TYPE\_ADMIN} vorgesehen, der zyklisch im Hauptprogramm (OB1\abbrev{OB}{Organisationsbaustein}) der SPS aufgerufen werden soll. Dessen Logik ist konzeptionell in dem Sequenzdiagramm in Abbildung~\ref{fig:ips_l_concept_sequence} dargestellt und soll auf Basis dieser Vorlage umgesetzt werden. Folgende Funktionalität ist dabei zu implementieren:\par
+
+Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückträger (WT\abbrev{WT}{Werkstückträger}) in Bearbeitungsposition ist. Außerdem wird geprüft, ob die Bearbeitung nicht aktiv ist. Sind beide Bedingungen erfüllt, wird die Nummer des WTs von Förderelement \texttt{+TL002} aus dem Datenbaustein (DB\abbrev{DB}{Datenbaustein}) \texttt{DB\_WT\_NR} gelesen. Anhand dieser Nummer wird anschließend aus \texttt{DB\_WT\_DA} die auf dem WT befindliche Ordernummer ermittelt. Mithilfe dieser wird danach die zur Ordernummern gehörige Entwicklungsserie aus dem IPS-L Datenbaustein \texttt{DB\_IPSL\_SEQU} gelesen. Der \texttt{DB\_TYPE\_ADMIN} enthält schließlich die Zuordnung der Bearbeitungsprofile zu den Entwicklungsserien. Das zugehörige Bearbeitungsprofil wird also ausgewählt und an die Roboterschnittstelle \texttt{DB\_ROB\_ITF} übergeben. Nach erfolgter Übergabe erhält der Roboter die Freigabe zur Bearbeitung, er meldet zurück, sobald die Bearbeitung aktiv ist. 
 
 \bild{t}{width=\textwidth}{ips_l_concept_sequence}{Sequenzdiagramm: Verwendung der IPS-L-Daten zur Typverwaltung}
 
@@ -69,7 +70,8 @@ Zunächst wird auf die Meldung der Fördertechnik gewartet, dass der Werkstückt
 \subsection{Implementierung}
 \label{subsec:ips_l_implementation}
 
-Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaustein \texttt{FB\_TYPE\_ADMIN}, der die Logik enthält, zahlreiche Hilfsfunktionen (FCs\abbrev{FC}{Funktion}), der Datenbaustein \texttt{DB\_TYPE\_ADMIN} sowie ein neuer Datentyp (UDT\abbrev{UDT}{Datentyp (User Defined Type)}) zum Darstellen des Bearbeitungsprofils benötigt. Folgende Auflistung beinhaltet die nötigen Objekte und beschreibt deren Zweck in Anlehnung an Abbildung~\ref{fig:ips_l_concept_sequence}. Zudem enthält die Auflistung die Implementierung der Obejekte in der Sprache \emph{SCL}. Alle anderen im Sequenzdiagramm aufgeführten Datenbausteine, welche nicht beschrieben sind, sind bereits in der STEP7-Projektvorlage vorhanden und können ohne Modifikation verwendet werden. 
+Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaustein \texttt{FB\_TYPE\_ADMIN}, der die Logik enthält, zahlreiche Hilfsfunktionen (FCs\abbrev{FC}{Funktion}), der Datenbaustein \texttt{DB\_TYPE\_ADMIN} sowie ein neuer Datentyp (UDT\abbrev{UDT}{Datentyp (User Defined Type)}) zum Darstellen des Bearbeitungsprofils benötigt. Folgende Auflistung beinhaltet die nötigen Objekte und beschreibt deren Zweck in Anlehnung an Abbildung~\ref{fig:ips_l_concept_sequence}. Zudem enthält die Auflistung die Implementierung der Objekte in der Sprache \emph{SCL}. Alle anderen im Sequenzdiagramm aufgeführten Datenbausteine, welche nicht beschrieben sind, sind bereits in der STEP7-Projektvorlage vorhanden und können ohne Modifikation verwendet werden. 
+\newpage
 
 
 % \begin{description}
@@ -88,7 +90,7 @@ Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaust
 \begin{description}
     \itemsep 0.05em
     % \item \texttt{FC\_IPSL\_SET\_POINTER8}
-    \item [\texttt{UDT\_PROCESS\_PROFILE}] ist ein benutzerdefinierter Datentyp, der als Repräsentation für ein Bearbeitungsprofil dient. Die Entwicklungsserie wird einem Feld von vier Elementen des Typs \texttt{CHAR\abbrev{CHAR}{Character (Zeichen) \einh{8}{\Bit}}} dargestellt. Das entspricht exakt der Repräsentation, wie sie im Datenbaustein \texttt{DB\_IPSL\_SEQU} verwendet wird. Daneben enthält der Datentyp für jeden anzusteuernden Zylinder jeweils eine boolesche. Weißt eine \texttt{useCylX}-Variable den Wert \texttt{TRUE} auf, wird der zugehörige Zylinder bei der Bearbeitung des Fahrzeugs angesteuert.\leer
+    \item [\texttt{UDT\_PROCESS\_PROFILE}] ist ein benutzerdefinierter Datentyp, der als Repräsentation für ein Bearbeitungsprofil dient. Die Entwicklungsserie wird einem Feld von vier Elementen des Typs \texttt{CHAR\abbrev{CHAR}{Character (Zeichen) \einh{8}{\Bit}}} dargestellt. Das entspricht exakt der Repräsentation, wie sie im Datenbaustein \texttt{DB\_IPSL\_SEQU} verwendet wird. Daneben enthält der Datentyp für jeden anzusteuernden Zylinder jeweils eine boolesche Variable. Weißt eine \texttt{useCylX}-Variable den Wert \texttt{TRUE} auf, wird der zugehörige Zylinder bei der Bearbeitung des Fahrzeugs angesteuert.\leer
     % 
     \lstinputlisting[style=sclStyle,label=lst:udt_process_profile]{\src/udt_process_profile.scl}
     %
@@ -105,11 +107,11 @@ Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaust
     \lstinputlisting[style=sclStyle,label=lst:fc_get_or]{\src/fc_get_or.scl}
     %
     \item [\texttt{FC\_GET\_SERIES(orderNumber:CHAR[8], series:CHAR[4]):VOID}] liest unter Angabe der Ordernummer als Parameter \texttt{orderNumber} die Entwicklungsserie aus dem Datenbaustein \texttt{DB\_IPSL\_SEQU} und gibt diese als In/Out-Parameter \texttt{series} als Feld von vier Elementen des Typs \texttt{CHAR} zurück.\par    
-    Beim Lesen der IPS-L Daten bedient sich die Funktion des im Datenbaustein \texttt{DB\_IPSL\_VERW} vorhandenen \emph{Zeiger 8}. Dieser ist vom TMO V1 Standard für den einfachen Zugriff auf das IPS-L Sequenzregister definiert und zeigt auf den Datensatz des aktuellen Fahrzeuges. Der Zeigerwert wird von einer separaten Funktion verwaltet. Bevor die Entwicklungsserie aus den IPSL-Daten gelesen wird prüft die Funktion, ob die angeforderte Ordernummer derjenigen entspricht, welche durch den \emph{Zeiger 8} referenziert wird. Ist dies nicht der Fall gibt die Funktion einen Fehler zurück.\leer
+    Beim Lesen der IPS-L Daten bedient sich die Funktion des im Datenbaustein \texttt{DB\_IPSL\_VERW} vorhandenen \emph{Zeiger 8}. Dieser ist vom TMO V1 Standard für den einfachen Zugriff auf das IPS-L Sequenzregister definiert und zeigt auf den Datensatz des aktuellen Fahrzeuges. Der Zeigerwert wird von einer separaten Funktion verwaltet. Bevor die Entwicklungsserie aus den IPS-L-Daten gelesen wird prüft die Funktion, ob die angeforderte Ordernummer derjenigen entspricht, welche durch den \emph{Zeiger 8} referenziert wird. Ist dies nicht der Fall gibt die Funktion einen Fehler zurück.\leer
     %
     \lstinputlisting[style=sclStyle,label=lst:fc_get_series]{\src/fc_get_series.scl}
     % 
-    \item [\texttt{FC\_GET\_PROCESS\_PROFILE(series:CHAR[4]:UDT\_PROCESS\_PROFILE}] liest unter Angabe der Entwicklungsserie als Parameter \texttt{series} das zugehörige Bearbeitungsprofil aus dem Datenbaustein \texttt{DB\_TYPE\_ADMIN} und gibt es als In/Out-Parameter \texttt{processProfile} des Typs \texttt{UDT\_PROCESS\_PROFILE} zurück.
+    \item [\texttt{FC\_GET\_PROC\_PROFILE(series:CHAR[4], procProfile:UDT\_PROCESS\_PROFILE):INT}] liest unter Angabe der Entwicklungsserie als Parameter \texttt{series} das zugehörige Bearbeitungsprofil aus dem Datenbaustein \texttt{DB\_TYPE\_ADMIN} und gibt es als In/Out-Parameter \texttt{procProfile} des Typs \texttt{UDT\_PROCESS\_PROFILE} zurück. Wird die angeforderte Entwicklungsserie nicht gefunden, gibt die Funktion einen Fehler zurück.
     % 
     \lstinputlisting[style=sclStyle,label=lst:fc_get_process_profile]{\src/fc_get_process_profile.scl}
     % \item [\texttt{FB\_TYPE\_ADMIN}:] implementiert die Logik zur Typverwaltung und ist damit für deren Steuerung verantworlich. Der Aufruf findet zyklisch im OB1 statt. 
@@ -122,7 +124,7 @@ Für die Implementierung der beschriebenen Logik werden neben dem Funktionsbaust
 \subsection{Schnittstellenkontrakt}
 \label{subsec:ips_t_contract}
 
- Es handelt sich dabei um das Technik-Netz. Mit diesem werden Daten unterscheidlicher Art ausgetauscht. Zu den wichtigsten Daten gehören die Störmeldungen, welche die SPS an das IPS-T-Netz übermittelt. Zusätzlich werden Daten zu Zählerständen, Füllständen und Taktzeiten ausgetauscht. Dabei agiert die SPS nicht nur als Sender sondern auch Empfänger. So können mittels IPS-T beispielsweise Sollwerte für den Prozess  vorgegeben, bit-getriggerte Events in der Anlage ausgelöst oder Schichtwechsel-Signale an die Steuerung gesendet werden. 
+ Es handelt sich dabei um das Technik-Netz. Mit diesem werden Daten unterschiedlicher Art ausgetauscht. Zu den wichtigsten Daten gehören die Störmeldungen, welche die SPS an das IPS-T-Netz übermittelt. Zusätzlich werden Daten zu Zählerständen, Füllständen und Taktzeiten ausgetauscht. Dabei agiert die SPS nicht nur als Sender sondern auch Empfänger. So können mittels IPS-T beispielsweise Sollwerte für den Prozess  vorgegeben, bit-getriggerte Events in der Anlage ausgelöst oder Schichtwechsel-Signale an die Steuerung gesendet werden. 
 
 
 Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspartner eines im TMO-V1 definierten Protokolls. Seitens der SPS ist dieses in Form eines STRUCT in den Sende- und Empfangs-DBs hinterlegt (siehe Abb.~\ref{fig:ips_t_struct}). Das Befüllen der STRUCTs in den DBs geschieht mittels BMW-eigener Funktionen und Funktionsbausteinen, die wiederum separate DBs als Datenbasis nutzen. Die Aufgabe des SPS-Entwicklers besteht darin die Datenbasis mit den relevanten Werten zu befüllen. Im vorliegenden Projekt ist der Austausch von insgesamt sechs Zählerständen vorgesehen, die die folgenden Daten enthalten sollen:
@@ -157,4 +159,4 @@ Zum Generieren und Interpretieren der Daten bedienen sich die Kommunikationspart
 \section{IPS-Q}
 \label{sec:ips_q}
 
-Das Qualitätsnetz IPS-Q hat im Rahmen des Testprojektes keines Relevanz und wird aus diesem Grund nicht konzeptioniert.
+Das Qualitätsnetz IPS-Q hat im Rahmen des Testprojektes keine Relevanz und wird aus diesem Grund nicht konzeptioniert.

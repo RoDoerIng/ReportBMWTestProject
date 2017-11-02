@@ -51,31 +51,31 @@ Da die verwendete Steuerung mit ihrer integrierten Safety-CPU sicherheitstechnis
 \section{Safety-Software}
 \label{sec:safety_software}
 
-Als Grundlage für die Safety-Software dient die Safety-Matrix (Vgl. Abb.~\ref{fig:safety_matrix}). In dieser steht beschrieben, welches Nothalt-Organ welchen Lastkreis und welche Funktionsgruppe betrifft. Für den vergleichsweise geringen Umfang der Anlage im Testprojekt ist die Matrix recht simpel. Hier wirkt jedes Nothalt-Organ auf jede Funktionsgruppe. Bei komplexeren, flächenmäßig weitläufigen Anlagen lautet die Vorgabe, dass Nothalt-Organe jeweils nur Funktionsgruppen betreffen, die sich in unmittelbarer Nähe befinden. Speziell bei Nothalt-Tastern gilt, dass nur Funktionsgruppen betroffen sind, die sich im Sichtbereich der betätigenden Person befinden.
+Als Grundlage für die Safety-Software dient die Safety-Matrix (s. Abb.~\ref{fig:safety_matrix}). In dieser steht beschrieben, welches Nothalt-Organ welchen Lastkreis und welche Funktionsgruppe betrifft. Für den vergleichsweise geringen Umfang der Anlage im Testprojekt ist die Matrix simpel. Hier wirkt jedes Nothalt-Organ auf jede Funktionsgruppe. Bei komplexeren, flächenmäßig weitläufigen Anlagen lautet die Vorgabe, dass Nothalt-Organe jeweils nur Funktionsgruppen betreffen, die sich in unmittelbarer Nähe befinden. Speziell bei Nothalt-Tastern gilt, dass nur Funktionsgruppen betroffen sind, die sich im Sichtbereich der betätigenden Person befinden.
 
-Zur Realisierung der Sicherheitsfunktionen im Testprojekt werden Bausteine aus der Projektvorlage verwendet. Das darin enthaltene Safety-Programm umfasst wesentlich mehr Peripherie als für das Testprojekt vorgesehen. Abbildung~\ref{fig:safety_estop_compare} verdeutlicht den Unterscheid anhand der Not-HALT-Behandlung. Anstelle der vier Not-HALT-Organe aus der Projektvorlage werden hier lediglich zwei verarbeitet. Jedem Not-HALT Taster ist ein Netzwerk zugeordnet, in dem die zugehörigen sicheren digitalen Eingänge verschaltet sind. In weiteren Bausteinen wird die entsprechende Peripherie für Schutz-Türen, Lichtgitter, Roboter, Lastkreise etc. verarbeitet.  
+Zur Realisierung der Sicherheitsfunktionen im Testprojekt werden Bausteine aus der Projektvorlage verwendet. Das darin enthaltene Safety-Programm umfasst wesentlich mehr Peripherie als für das Testprojekt vorgesehen. Abbildung~\ref{fig:safety_estop_compare} verdeutlicht den Unterschied anhand der Not-Halt-Behandlung. Anstelle der vier Not-Halt-Organe aus der Projektvorlage werden hier lediglich zwei verarbeitet. Jedem Not-Halt Taster ist ein Netzwerk zugeordnet, in dem die zugehörigen sicheren digitalen Eingänge verschaltet sind. In weiteren Bausteinen wird die entsprechende Peripherie für Schutz-Türen, Lichtgitter, Roboter, Lastkreise etc. verarbeitet.  
 
 \bild{t}{width=0.4\textwidth}{safety_matrix}{Safety-Matrix}
 
-\bild{t}{width=0.85\textwidth}{safety_estop_compare}{Vergleich Not-HALT Behandlung: Projektvorlage (li.), Testprojekt (re.)}
+\bild{t}{width=0.85\textwidth}{safety_estop_compare}{Vergleich Not-Halt Behandlung: Projektvorlage (li.), Testprojekt (re.)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Anbindung IT-Systemen}
 \bild{htbp}{width=0.65\textwidth}{it_systems_connection}{SPS-seitige Konfiguration der TCP-Verbindungen}
 
-Für die Anbindung der IT-Systeme (IPS-X System) ist die Konfiguration mehrerer Bausteine notwendig. Hardware-seitig werden die IT-Systeme über die Onboard-Schnittstelle der CPU angebunden. Software-seitig wird in einem Funktionsbaustein (FB61-\texttt{FB\_IE\_VERB}) jede einzelne Verbindung separate eingerichtet (s. Abb.~\ref{fig:it_systems_connection}).\par
+Für die Anbindung der IT-Systeme (IPS-X System) ist die Konfiguration mehrerer Bausteine notwendig. Hardware-seitig werden die IT-Systeme über die Onboard-Schnittstelle der CPU angebunden. Software-seitig wird in einem Funktionsbaustein (FB61) jede einzelne Verbindung separat eingerichtet (s. Abb.~\ref{fig:it_systems_connection}).\par
 Im ersten Netzwerk wird die CPU gewählt, indem der entsprechende Zahlenwert in eine temporäre Variable geladen wird. Diese wird in den nachfolgenden Netzwerken für jede einzelne Verbindung wiederverwendet. Im Rahmen des Testprojektes sind drei Verbindungen herzustellen, bei denen die SPS jeweils der passive Verbindungspartner ist. Es handelt sich allen drei Fällen um RFC1006-Verbindungen\footnote{RFC 1006 mit dem Titel ``ISO Transport Service on top of the TCP'' (ISO Transportdienst über TCP) ist eine Protokoll-Erweiterung für das TCP-Protokoll. Hierbei werden zusätzlich zu den TCP Daten weitere Informationen zwischen den Teilnehmern übertragen, um bestimmte Dienste für den Anwender erbringen zu können (ISO-Dienste als Erweiterung zu TCP)~\citelonl{onl_rfc1006}}\abbrev{RFC}{Request for Comments}.
-Damit eine solche Verbindung erfolgreich aufgebaut werden kann, sind die IP-Adressen der Partner und deren TSAP\abbrev{TSAP}{Transport Service Access Point} notwendig. Als TSAP der SPS dient der Anlagenname aus dem Anlagenkennzeichen (siehe Abschnitt~\ref{sec:naming}). Der TSAP des jeweiligen IPS-X System ist \emph{hart} in den FB61 codiert und wird mit folgenden Lade- und Trasfer-Anweisungen in den Netzwerken 2\ldots4 in die statischen Daten des Bausteins geladen. Beispiel IPS-T-System:\leer
+Damit eine solche Verbindung erfolgreich aufgebaut werden kann, sind die IP-Adressen der Partner und deren Transport Service Access Point (TSAP\abbrev{TSAP}{Transport Service Access Point}) notwendig. Als TSAP der SPS dient der Anlagenname aus dem Anlagenkennzeichen (siehe Abschnitt~\ref{sec:naming}). Der TSAP des jeweiligen IPS-X System ist \emph{hart} in den FB61 codiert und wird mit folgenden Lade- und Transfer-Anweisungen in den Netzwerken 2\ldots4 in die statischen Daten des Bausteins geladen. Beispiel IPS-T-System:\leer
 
 
 \lstinputlisting[style=awlStyle,firstline=1,lastline=20]{\src/fb_ie_verb.awl}
 \pagebreak
 
-Schließlich wird mit dem Aufrauf eines Multiinstanz-Funktionsbausteins für jedes IPS-X System separat die Verbindung aufgebaut. Beispiel IPS-T-System:\leer
+Schließlich wird mit dem Aufruf eines Multiinstanz-Funktionsbausteins für jedes IPS-X System separat die Verbindung aufgebaut. Beispiel IPS-T-System:\leer
 
 \lstinputlisting[style=awlStyle,firstline=21,lastline=25]{\src/fb_ie_verb.awl}\leer
 
 
-Nach erfolgreicher Konfiguration ist die SPS in der Lage, Daten mit den IPS-X-Systemen auszutauschen. Welche Daten ausgetauscht werden sollen und wie die Kommunikation im Einzelnen vonstatten geht, wird in Kapitel~\ref{chap:interfaces} behandelt.
+Nach erfolgreicher Konfiguration ist die SPS in der Lage, Daten mit den IPS-X-Systemen auszutauschen. Welche Daten ausgetauscht werden und wie die Kommunikation im Einzelnen vonstatten geht, wird in Kapitel~\ref{chap:interfaces} behandelt.
 

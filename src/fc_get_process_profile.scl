@@ -1,7 +1,7 @@
-FUNCTION FC_GET_PROCESS_PROFILE : INT
+FUNCTION FC_GET_PROC_PROFILE : INT
     VAR_IN_OUT
          series : ARRAY [0..3] OF CHAR;
-         processProfile : UDT_PROCESS_PROFILE;
+         procProfile : UDT_PROCESS_PROFILE;
     END_VAR
 
     VAR_TEMP
@@ -12,7 +12,7 @@ FUNCTION FC_GET_PROCESS_PROFILE : INT
         IF FC_DATA_EQUAL(   in1:=series, 
                             in2:=DB_TYPE_ADMIN.ProcessProfiles[ii].series) 
         THEN
-            processProfile := DB_TYPE_ADMIN.ProcessProfiles[ii];
+            procProfile := DB_TYPE_ADMIN.ProcessProfiles[ii];
             FC_GET_PROCESS_PROFILE := 0;        // return success
             RETURN;
         END_IF;

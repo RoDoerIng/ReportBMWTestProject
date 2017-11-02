@@ -12,7 +12,7 @@
 \subsection{Überblick}
 
 Im ersten Projektierungsschritt wird ein Konzept erarbeitet, welches alle wesentlichen Komponenten der zukünftigen Anlage sowie deren Verknüpfung miteinander enthält (siehe Abb.~\ref{fig:controlConceptOverview}). Ziel des Steuerungskonzeptes ist es, eine Art Leitfaden für den gesamten Entwicklungsprozess zu schaffen, auf den sich Konstrukteure und Programmierer während des gesamten Projektes stützen können.
-Die folgenden Abschnitte enthalten jeweils Auszüge und dienen der Veranschaulichung des Inhaltes und Umfanges des Steuerungskonzepts. Das komplette Dokument liegt dem Bericht als Anhang~\ref{appndx:controlConcept} bei.
+Die folgenden Abschnitte enthalten jeweils Auszüge und dienen der Veranschaulichung des Inhalts und Umfangs des Steuerungskonzeptes. Das komplette Dokument liegt dem Bericht als Anhang~\ref{appndx:controlConcept} bei.
 
 \bild{t}{trim =2cm 2.3cm 2cm 1cm, clip, width=0.8\textwidth }{controlConceptOverview}{Steuerungskonzept: Überblick}
 
@@ -22,18 +22,18 @@ Die Anlagensicherheit ist ein wichtiger Teil der Projektierung. Das Schema in Ab
 \footnote{Profinet basiert auf Ethernet-TCP/IP und ergänzt die Profibus-Technologie für Anwendungen, bei denen schnelle Datenkommunikation über Ethernet-Netzwerke in Kombination mit industriellen IT-Funktionen gefordert wird. \citelonl{onl_profinet}}.
 Zur Datenübertragung dient das Protokoll PROFIsafe
 \footnote{Das PROFIsafe-System ist eine Erweiterung des Profibus- und PROFINET-Systems. Mit dem System können frei programmierbare Sicherheitsfunktionen ausgeführt und die hierfür notwendigen sicheren Ein- und Ausgangsdaten von und zu den sicheren I/O-Geräten übertragen werden.\citelonl{onl_profisafe}}.
-An die dezentrale Peripherie werden die sicherheitsrelevanten Baugruppen per digitaler Signale verbunden. Dafür werden spezielle sichere Eingangs- und Ausgangsbaugruppen verwendet. Konkret kommen in diesem Fall NOT-HALT-Taster, Türverriegelungen, Lichtvorhänge und Zustimmtaster zum Einsatz. Im Schema werden die einzelnen Komponenten nur mit jeweils einem Vertreter dargestellt.
-Der Detaillierungsgrad in der Darstellung der Sicherheitstechnik ist zwar nicht allzu hoch, zeigt aber den grundsätzlichen Aufbau. Aus der Abbildung geht hervor, dass die Verknüpfung aller sicherheitsrelevanter Komponenten innerhalb der Safety-Software geschieht. Hart verdrahtete Sicherheitskreise werden nicht verwendet.
+An die dezentrale Peripherie werden die sicherheitsrelevanten Baugruppen per digitaler Signale verbunden. Dafür werden spezielle sichere Eingangs- und Ausgangsbaugruppen verwendet. Konkret kommen in diesem Fall Not-Halt-Taster, Türverriegelungen, Lichtvorhänge und Zustimmtaster zum Einsatz. Im Schema werden die einzelnen Komponenten nur mit jeweils einem Vertreter dargestellt.
+Der Detaillierungsgrad in der Darstellung der Sicherheitstechnik ist recht gering, zeigt aber den grundsätzlichen Aufbau. Aus der Abbildung geht hervor, dass die Verknüpfung aller sicherheitsrelevanter Komponenten innerhalb der Safety-Software geschieht. Hart verdrahtete Sicherheitskreise werden nicht verwendet.
 
 \bild{t}{trim =2cm 4.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptSafety}{Steuerungskonzept: Sicherheitstechnik}
 
 \subsection{Antriebstechnik}
 
-\bild{t}{trim =1cm 3.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptDrives}{Steuerungskonzept: Antriebstechnik}
+% \bild{t}{trim =1cm 3.3cm 2cm 3cm, clip, width=0.8\textwidth}{controlConceptDrives}{Steuerungskonzept: Antriebstechnik}
 
-Die zu projektierende Roboterzelle verfügt über ein sehr übersichtliches Antriebskonzept. Lediglich die Fördertechnik wird mit Frequenzumrichter (FU\abbrev{FU}{Frequenzumrichter})-Antrieben ausgestattet. Es handelt sich um Movifit FC Antriebe der Firma SEW. Jeder FU ist in der Lage bis zu drei Motoren zu steuern. Darüber hinaus verfügen die Antriebe über sichere digitale Ein- und Ausgänge, welche anstelle dedizierter dezentraler Peripherie verwendet werden können.
+Die zu projektierende Roboterzelle verfügt über ein sehr übersichtliches Antriebskonzept (s. Anhang~\ref{appndx:controlConcept}  Seite 6/15). Lediglich die Fördertechnik wird mit Frequenzumrichter (FU\abbrev{FU}{Frequenzumrichter})-Antrieben ausgestattet. Es handelt sich um Movifit FC Antriebe der Firma SEW. Jeder FU ist in der Lage bis zu drei Motoren zu steuern. Darüber hinaus verfügen die Antriebe über sichere digitale Ein- und Ausgänge, welche anstelle dedizierter dezentraler Peripherie verwendet werden können.
 
-Die FUs werden an drei verschiedene Netze angeschlossen. Das \einh{24}{\volt}-Netz versorgt die digitalen Ein- und Ausgangsbaugruppen sowie den Steuerteil. Über das \einh{400}{\volt}-Netz wird die Leistung für die Motoren übertragen. Zur Kommunikation von Steuerbefehlen und Statusinformationen zwischen SPS und FUs erfolgt per PROFINET.
+Die FUs werden an drei verschiedene Netze angeschlossen. Das \einh{24}{\volt}-Netz versorgt die digitalen Ein- und Ausgangsbaugruppen sowie den Steuerteil. Über das \einh{400}{\volt}-Netz wird die Leistung für die Motoren übertragen. Die Kommunikation von Steuerbefehlen und Statusinformationen zwischen SPS und FUs erfolgt per PROFINET.
 
 \subsection{Softwarestruktur und Kommunikationswege}
 
@@ -41,8 +41,8 @@ Die FUs werden an drei verschiedene Netze angeschlossen. Das \einh{24}{\volt}-Ne
 
 Etwas komplexer als die Antriebstechnik ist der Aufbau der Softwarestruktur und Kommunikationswege. Abbildung~\ref{fig:controlConceptSoftware} veranschaulicht das Zusammenspiel aller Komponenten.
 
-Innerhalb der Station erfolgt sämtlicher Informationsaustausch Software-basierter Baugruppen mittels PROFINET (grün dargestellt). Das Kernelement bildet die Siemens 319F SPS. In dieser laufen alle Informationen der Panels, FUs, Robotersteuerung und Schraubersteuerung zusammen.
-Die SPS dient als Kommunikationsknoten zwischen der Station und den übergeordneten IT-Netzen. Die einzige Ausnahme bildet die Schraubersteuerung. Sie kommuniziert ihre Daten ohne Umwege über die Steuerung direkt an das IPM-System.
+Innerhalb der Station erfolgt sämtlicher Informationsaustausch Software-basierter Baugruppen mittels PROFINET (grün dargestellt). Das Kernelement bildet die S7-300 CPU. In dieser laufen alle Informationen der Panels, FUs, Robotersteuerung und Schraubersteuerung zusammen.
+Die SPS dient als Kommunikationsknoten zwischen der Station und den übergeordneten IT-Netzen. Die einzige Ausnahme ist die Schraubersteuerung. Sie kommuniziert ihre Daten ohne Umwege über die Steuerung direkt an das IPM-System.
 Als Gegenstand des Projektes werden nur die Anbindungen an die Systeme IPS\abbrev{IPS}{Internationales Produktionssystem}-Q\abbrev{IPS-Q}{Qualitätsnetz}, IPS-L\abbrev{IPS-L}{Logistiknetz} und IPS-T\abbrev{IPS-T}{Techniknetz} projektiert.
 
 
